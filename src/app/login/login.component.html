@@ -1,0 +1,17 @@
+<section class="login">
+    <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-4"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <h5>Login</h5>
+            <div class="form-group">
+                <label for="usr">Username:</label>
+                <input type="text" class="form-control" [(ngModel)]="name" name="username">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" [(ngModel)]="password"  name="password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm" (click)="login()">Login</button>
+        </div>
+    </div>
+</section>
