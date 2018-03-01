@@ -7,17 +7,21 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 import { LoginService } from './services/login.service';
+import { SignupService } from './services/signup.service';
 
 const appRoutes = [
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,7 @@ const appRoutes = [
     RouterModule.forRoot(
       appRoutes)
   ],
-  providers: [LoginService],
+  providers: [LoginService,SignupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
