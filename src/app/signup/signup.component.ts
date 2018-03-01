@@ -3,6 +3,7 @@ import { SignupService } from './../services/signup.service';
 import { CloudinaryModule, Cloudinary, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
 
 @Component({
     selector: 'signup',
@@ -17,12 +18,24 @@ export class SignupComponent {
     confirmPassword: any;
     phoneNumber: any;
     zipCode: any;
+    imageId: string;
 
-    constructor(private cloudinary: Cloudinary, private router: Router,private signupService: SignupService, private elem: ElementRef) {
+    uploader: CloudinaryUploader = new CloudinaryUploader(
+        new CloudinaryOptions({ cloudName: 'santhosh001', uploadPreset: 'saiaawaf' })
+    );
 
-        console.log(cloudinary.cloudinaryInstance.image('sample'));
+    constructor( private router: Router,private signupService: SignupService, private elem: ElementRef){
+        //Override onSuccessItem to retrieve the imageId
+        this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
+            let res: any = JSON.parse(response);
+            this.imageId = res.public_id;
+            return { item, response, status, headers };
+        };
     }
 
+    upload() {
+        this.uploader.uploadAll();
+    }
 
     signUp() {
         console.log(this.userName,this.email,this.password,this.confirmPassword,this.phoneNumber,this.zipCode)

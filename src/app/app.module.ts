@@ -12,9 +12,8 @@ import { LoginService } from './services/login.service';
 import { SignupService } from './services/signup.service';
 import { EventComponent } from './events/events.component';
 import { EventService } from './services/events.service';
-
-import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
-import { Cloudinary } from 'cloudinary-core';
+import { Ng2CloudinaryModule } from 'ng2-cloudinary';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 const appRoutes = [
@@ -35,8 +34,8 @@ const appRoutes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'santhosh001' } as CloudinaryConfiguration),
-
+    Ng2CloudinaryModule,
+    FileUploadModule,
     RouterModule.forRoot(
       appRoutes)
   ],

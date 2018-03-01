@@ -47,6 +47,12 @@
     </div>
 </section>
 
+<input type="file" ng2FileSelect [uploader]="uploader" accept="image/*;capture=camera">
+
+<button (click)="upload()">Upload</button>
+
+<cl-image [public-id]="imageId" [cloud-name]="uploader.cloudName"></cl-image>
+
 <!-- <cl-image public-id="sample" class="thumbnail inline" angle="20" format="jpg">
     <cl-transformation height="150" width="150" crop="fill" effect="sepia" radius="20"></cl-transformation>
     <cl-transformation overlay="text:arial_60:sample" gravity="north" y="20"></cl-transformation>
