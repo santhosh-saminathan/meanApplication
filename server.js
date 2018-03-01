@@ -7,6 +7,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', (process.env.PORT || 3000));
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+ console.log("we are connected")
+});
+
 app.use((req, res, next) => {
 
     res.header('Access-Control-Allow-Origin', '*');
@@ -31,6 +40,12 @@ app.post('/login',function(req,res){
     res.json(200,"user found");
     else
     res.json(404,"not found");
+})
+
+app.post('/signup',function(req,res){
+    console.log(req.body);
+    // Actual process: query to mongo and get data.
+    res.send(200,"success")
 })
 
 

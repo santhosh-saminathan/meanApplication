@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from './../services/login.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'login',
@@ -10,7 +12,7 @@ export class LoginComponent {
     name:string;
     password:string;
 
-    constructor(private loginService:LoginService) { }
+    constructor(private loginService:LoginService,private router: Router, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         console.log("calls automatically");
@@ -24,6 +26,11 @@ export class LoginComponent {
         },
             err => console.error(err),
             () => console.log('done loading'));
+
+    }
+
+    register(){
+        this.router.navigate(['/signup'])
 
     }
 }
