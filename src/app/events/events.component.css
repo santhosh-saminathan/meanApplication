@@ -1,0 +1,165 @@
+.col-md-3,.col-md-4 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.bg-pink {
+    background:#f0f0f0;
+}
+.bg-blue {
+    background:#d6d6d6;
+    color:#000;
+}
+ .padding35 {
+    padding: 35px 0 35px;
+}
+
+
+/* Feature-CSS */
+
+.icon {
+    color : #fff;
+    padding:15px;
+    background:#323232 ;
+    font-size:50px;
+    border-radius:90px;
+    border:10px solid #323232 ;
+    
+}
+.feature-box {
+    text-align: center;
+    padding: 20px;
+    transition: .5s;
+    margin-bottom: 30px;
+    border: 1px solid #e8e8e8;
+}
+.feature-box:hover {
+   
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.feature-box h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 25px 0 15px;
+}
+
+/* Site Heading */
+.site-heading h3{
+    font-size : 40px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.border {
+    background: #e8e8e8 ;
+    height: 1px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 45px;
+    float:left;
+}
+
+/* padding-margin */
+.paddingTB60 {
+    padding-top:60px;
+    padding-bottom:60px;
+}
+
+
+
+ .col-md-4{
+    position: relative;
+    min-height: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+ /* CTA CSS */
+ .cta-padding35 {
+    padding: 35px 0 35px;
+    background-color: #b40028;
+    color:#fff;
+}
+/* Buttons */
+.site-btn {
+    font-size: 14px;
+    padding: 13px 30px;
+    border-radius: 5px;
+    border: 1px solid #b40028 ;
+    min-width: 200px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #fff ;
+    background-color:transparent;
+    transition: all .25s ease-in-out;
+    margin: 10px 0px 10px 0px;
+    
+}
+.site-btn:hover {
+    background: #b40028 ;
+    border: 1px solid #fff;
+    font-weight:700px;
+    
+    
+}
+ 
+
+
+
+.img-responsive {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+}
+
+.menu
+{
+background-color: #011034;
+border-bottom: 4px solid #011034;
+width:100%;
+height: 50px;
+padding:  10px;
+position: fixed;
+margin: 0px;
+z-index: 1;
+opacity: 0.9;
+}
+
+.menu  .navbar-nav > .active > a
+{
+background-color : #011034;
+color: white;
+font-weight: bold;
+}
+
+.menu  .navbar-nav >  li >  a
+{
+font-size: 13px;
+color: white;
+padding: 10px 35px;
+
+}
+.menu  .navbar-nav >  li >  a:hover
+{
+background-color: #011034;
+}
+
+.navbar-header > a
+{
+font-family: 'Ubuntu Condensed', sans-serif;
+padding: 0px;
+margin: 0px;
+text-decoration: none;
+color: white;
+font-size: 25px;
+padding: 5px 30px;
+}
+.navbar-header > a:hover
+{
+text-decoration: none;
+color: #011034;
+}

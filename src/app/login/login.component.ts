@@ -22,7 +22,7 @@ export class LoginComponent {
         console.log("inside login function",this.name,this.password);
         this.loginService.loginUser(this.name,this.password).subscribe(data => {
             console.log(data);
-            window.alert("Success"); // used window.alert for demo purpose;
+            this.router.navigate(['/events'])
         },
             err => console.error(err),
             () => console.log('done loading'));

@@ -28,8 +28,7 @@ export class SignupComponent {
         console.log(this.userName,this.email,this.password,this.confirmPassword,this.phoneNumber,this.zipCode)
         if(this.password!=this.confirmPassword)
         window.alert("password and confirm password didn't match");
-
-        if(!this.userName || !this.email || !this.password || !this.confirmPassword || !this.phoneNumber || !this.zipCode){
+        else if(!this.userName || !this.email || !this.password || !this.confirmPassword || !this.phoneNumber || !this.zipCode){
             window.alert("All fields are necessary")
         }else{
             let userObj = {
