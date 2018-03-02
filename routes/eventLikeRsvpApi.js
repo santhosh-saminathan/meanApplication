@@ -31,7 +31,7 @@ const likeEvent = (req, res) => {
 
             EventDetailsCollection.findOneAndUpdate({
                 'eventId': req.body.eventId
-            }, { $set: { 'likes': req.body.likedUserId } }, { new: true })
+            }, { $push: { 'likes': req.body.likedUserId } }, { new: true })
                 .exec((error, updatedDetails) => {
                     console.log("update time", error, updatedDetails);
                     if (error) {

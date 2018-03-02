@@ -51,7 +51,12 @@ export class SignupComponent {
                 'phoneNumber':this.phoneNumber,
                 'zipCode':this.zipCode
             }
-            this.signupService.signupUser(userObj).subscribe();
+            this.signupService.signupUser(userObj).subscribe(data => {
+                this.router.navigate(['/login'])
+            },
+                err => console.error(err),
+                () => console.log('done loading'));
+    
         }
     }
 

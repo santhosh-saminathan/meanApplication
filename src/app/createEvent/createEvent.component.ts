@@ -30,7 +30,9 @@ export class CreateEventComponent {
             'location':this.eventLocation
         }
         this.eventService.createEvent(event).subscribe(data => {
+            this.router.navigate(['/events']);
             console.log(data);
+            
         },
             err => console.error(err),
             () => console.log('done loading'));
