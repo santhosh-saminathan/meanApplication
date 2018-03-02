@@ -2,10 +2,17 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var path = require('path');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', (process.env.PORT || 3000));
+
+var userSchema = require(path.resolve('./schema/userSchema.js'));
+var eventSchema = require(path.resolve('./schema/eventSchema.js'));
+var eventDetails = require(path.resolve('./schema/eventDetailsSchema.js'))
+
+
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
@@ -33,21 +40,11 @@ app.get('/test',function(req,res){
     res.send("Hello world");
 })
 
-app.post('/login',function(req,res){
-    console.log(req.body);
-    // Actual process: query to mongo and get data.
-    if(req.body.username==='test' && req.body.password==='test')
-    res.json(200,"user found");
-    else
-    res.json(404,"not found");
-})
-
-app.post('/signup',function(req,res){
-    console.log(req.body);
-    // Actual process: query to mongo and get data.
-    res.send(200,"success")
-})
-
+app.post('/login',require('./routes/userApi').loginUser);
+app.post('/signup',require('./routes/userApi').createUser);
+app.post('/event/create',require('./routes/eventApi').createEvent);
+app.post('/all/events',require('./routes/eventApi').allEvents);
+app.post('/event/like',require('./routes/eventLikeRsvpApi').likeEvent);
 
 app.listen(app.get('port'), () => {
     console.log('Express server started');

@@ -1,0 +1,59 @@
+<section id="createEvent">
+    <div class="row">
+        <div class="col-xs-12 col-sm-1 col-md-2"></div>
+        <div class="col-xs-12 col-sm-10 col-md-8">
+            <form class="form-horizontal" action="/action_page.php">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Title:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" [(ngModel)]="eventTitle" name="title" placeholder="Event title">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Category:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" [(ngModel)]="eventCategory" name="category">
+                            <option value="category1">Category 1</option>
+                            <option value="category2">Category 2</option>
+                            <option value="category3">Category 3</option>
+                            <option value="category4">Category 4</option>
+                            <option value="category5">Category 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Location:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" [(ngModel)]="eventLocation" name="location" placeholder="Event location">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Date-Time:</label>
+                    <div class="col-sm-10">
+                        <input class="datePicker" type="datetime-local" name="bdaytime" [(ngModel)]="eventDate">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Description:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5" placeholder="Enter description" [(ngModel)]="eventDesc" name="desc"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                        <label class="control-label col-sm-2">Select&nbsp;Image:</label>
+                        <div class="col-sm-10">
+                            <button>Upload</button>
+                        </div>
+                    </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default" (click)="createEvent()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

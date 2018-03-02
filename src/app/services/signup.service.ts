@@ -14,6 +14,6 @@ export class SignupService {
   }
 
   signupUser(data){
-    return this.http.post("http://localhost:3000/signup",{user:data})  }
+    return this.http.post("http://localhost:3000/signup",data)  }
 
 }

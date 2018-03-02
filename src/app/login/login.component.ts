@@ -11,6 +11,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class LoginComponent {
     name:string;
     password:string;
+    userId:any;
 
     constructor(private loginService:LoginService,private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -20,8 +21,13 @@ export class LoginComponent {
 
     login(){
         console.log("inside login function",this.name,this.password);
-        this.loginService.loginUser(this.name,this.password).subscribe(data => {
-            console.log(data);
+        let data = {
+            'userEmail':this.name,
+            'password':this.password
+        }
+        this.loginService.loginUser(data).subscribe(data => {
+            this.userId = data;
+            localStorage.setItem('userId',this.userId)
             this.router.navigate(['/events'])
         },
             err => console.error(err),

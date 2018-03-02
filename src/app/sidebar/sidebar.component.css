@@ -1,0 +1,48 @@
+.sidebar_content{
+    background: #292929;
+    color: white;
+    border: 1px solid black;
+    /* position: fixed; */
+    height: calc(100vh - 55px);
+    padding: 0px;
+}
+
+.sidebar_content div{
+    font-size: 16px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.header{
+    background: rgba(0, 0, 0, 0.911);
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+}
+.pageTitle{
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+.font_awesome{
+  float: right;
+  margin-right:15px;
+}
+
+.sidebar_content div:hover{
+    background: #1B1919;
+}
+.highlight{
+    background: #151414;
+}
+
+.logout_option{
+    float:right;
+    cursor:pointer;
+}
+
+.scrolling_content{
+    height: 90vh;
+    overflow-y: scroll;
+    padding: 15px 10px;
+}

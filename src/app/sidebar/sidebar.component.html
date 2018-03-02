@@ -1,0 +1,38 @@
+<section class="header row">
+    <div class="col-xs-2 col-sm-4"></div>
+    <div class="pageTitle col-xs-6 col-sm-4">
+        <span>{{pageTitle}}</span>
+    </div>
+    <div class="col-xs-4 col-sm-4">
+        <span class="logout_option" (click)="logout()">Logout</span>
+    </div>
+</section>
+<div>
+    <div class="sidebar_content hidden-xs col-sm-4 col-md-3 col-lg-2">
+        <div [ngClass]="{'highlight': highlightHome}" (click)="home()">
+            <span>Home</span>
+            <i class="font_awesome fas fa-home"></i>
+        </div>
+        <div [ngClass]="{'highlight': highlightCreateEvent}" (click)="createEvent()">
+            <span>Create Event</span>
+            <i class="font_awesome fas fa-calendar-alt"></i>
+        </div>
+        <div [ngClass]="{'highlight': highlightCategory}" (click)="categories()">
+            <span>Categories</span>
+            <i class="font_awesome fas fa-tags"></i>
+        </div>
+        <div>
+            <span>Notifications</span>
+            <i class="font_awesome fas fa-bell"></i>
+        </div>
+        <div>
+            <span>Profile</span>
+            <i class="font_awesome fas fa-user"></i>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 scrolling_content">
+        <events *ngIf="url === '/events'"></events>
+        <createEvent *ngIf="url === '/createEvent'"></createEvent>
+        <category *ngIf="url === '/category'"></category>
+    </div>
+</div>

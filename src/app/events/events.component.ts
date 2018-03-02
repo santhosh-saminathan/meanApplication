@@ -11,20 +11,32 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class EventComponent {
     name:string;
     password:string;
+    allEvents:any;
 
     constructor(private eventService:EventService,private router: Router) { }
 
     ngOnInit() {
         this.eventService.getAllEvents().subscribe(data => {
             console.log(data);
+            this.allEvents = data;
         },
             err => console.error(err),
             () => console.log('done loading'));
 
     }
 
-    newEvent(){
-        console.log("create new event")
+    likeEvent(eventId,userId){
+       
+        let data = {
+            'likedUserId':localStorage.getItem('userId'),
+            'eventId':eventId,
+            'userId':userId
+        }
+        this.eventService.likeEvent(data).subscribe(data => {
+            console.log(data);
+        },
+            err => console.error(err),
+            () => console.log('done loading'));
     }
 
 }

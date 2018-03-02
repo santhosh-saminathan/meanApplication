@@ -8,8 +8,8 @@ import { Observable } from 'rxjs/Observable';
 export class LoginService {
   constructor(private http: HttpClient) { }
 
-  loginUser(username,password){
-      return this.http.post("http://localhost:3000/login",{'username':username,'password':password});
+  loginUser(data){
+      return this.http.post("http://localhost:3000/login",data);
   }
 
 }
