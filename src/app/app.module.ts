@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
- import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 
 import { AppComponent } from './app.component';
@@ -23,10 +24,10 @@ import { FileUploadModule } from 'ng2-file-upload';
 const appRoutes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent},
-  { path: 'events', component: SidebarComponent},
-  { path: 'createEvent', component: SidebarComponent},
-  { path: 'category', component: SidebarComponent},
+  { path: 'signup', component: SignupComponent },
+  { path: 'events', component: SidebarComponent },
+  { path: 'createEvent', component: SidebarComponent },
+  { path: 'category', component: SidebarComponent },
 ]
 
 @NgModule({
@@ -44,11 +45,12 @@ const appRoutes = [
     FormsModule,
     HttpClientModule,
     Ng2CloudinaryModule,
+    AngularMultiSelectModule,
     FileUploadModule,
     RouterModule.forRoot(
       appRoutes)
   ],
-  providers: [LoginService,SignupService,EventService],
+  providers: [LoginService, SignupService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

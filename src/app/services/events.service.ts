@@ -20,5 +20,9 @@ export class EventService {
   rsvpEvent(data){
     return this.http.post("http://localhost:3000/event/rsvp",data);
   }
+  updateEvent(data){
+    return this.http.post("http://localhost:3000/event/update",data);
+
+  }
 
 }

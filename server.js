@@ -10,7 +10,7 @@ app.set('port', (process.env.PORT || 3000));
 
 var userSchema = require(path.resolve('./schema/userSchema.js'));
 var eventSchema = require(path.resolve('./schema/eventSchema.js'));
-var eventDetails = require(path.resolve('./schema/eventDetailsSchema.js'))
+var eventDetails = require(path.resolve('./schema/eventDetailsSchema.js'));
 
 
 
@@ -46,6 +46,7 @@ app.post('/event/create',require('./routes/eventApi').createEvent);
 app.post('/all/events',require('./routes/eventApi').allEvents);
 app.post('/event/like',require('./routes/eventLikeRsvpApi').likeEvent);
 app.post('/event/rsvp',require('./routes/eventLikeRsvpApi').rsvpEvent);
+app.post('/event/update',require('./routes/eventApi').updateEvent);
 
 app.listen(app.get('port'), () => {
     console.log('Express server started');

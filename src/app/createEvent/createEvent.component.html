@@ -12,19 +12,29 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2">Category:</label>
                     <div class="col-sm-10">
-                        <select class="form-control" [(ngModel)]="eventCategory" name="category">
+                            <angular2-multiselect [data]="dropdownList" name="category" [(ngModel)]="selectedItems" 
+                            [settings]="dropdownSettings" 
+                            (onSelect)="onItemSelect($event)" 
+                            (onDeSelect)="OnItemDeSelect($event)"
+                            (onSelectAll)="onSelectAll($event)"
+                            (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+
+                        <!-- <select class="form-control" [(ngModel)]="eventCategory" name="category">
                             <option value="category1">Category 1</option>
                             <option value="category2">Category 2</option>
                             <option value="category3">Category 3</option>
                             <option value="category4">Category 4</option>
                             <option value="category5">Category 5</option>
-                        </select>
+                        </select> -->
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">Location:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" [(ngModel)]="eventLocation" name="location" placeholder="Event location">
+                            <div id="map"></div>
+                            <input id="searchTextField" type="text" placeholder="Enter location" [(ngModel)]="eventLocation" name="location" >
+                                 
+                        <!-- <input type="text" class="form-control" placeholder="Event location"> -->
                     </div>
                 </div>
                 <div class="form-group">
@@ -57,3 +67,4 @@
         </div>
     </div>
 </section>
+

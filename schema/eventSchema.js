@@ -3,15 +3,19 @@ const Schema = mongoose.Schema;
 
 const event = new Schema({
     'eventId': String,
-    'eventName':String,
-    'userId':String,
-    'createdDate':Date,
+    'eventName': String,
+    'eventDate': Date,
+    'userId': String,
+    'createdDate': Date,
     'updated': Date,
-    'categoryId':Array,
-    'description':String,
-    'image':String,
-    'location':String,
-    'approved':String
+    'categoryId': [{
+        'id': Number,
+        'itemName': String
+    }],
+    'description': String,
+    'image': String,
+    'location': String,
+    'approved': String
 }, { collection: 'Event' });
 
-module.exports = mongoose.model('Event',event);
+module.exports = mongoose.model('Event', event);

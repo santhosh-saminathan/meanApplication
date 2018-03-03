@@ -66,7 +66,7 @@ const rsvpEvent = (req, res) => {
             }
             let EventDetailsNewCollection = new EventDetailsCollection(eventDetailsObj);
 
-            EventDetailsNewCollection.save((error, likeAdded) => {
+            EventDetailsNewCollection.save((error, rsvpAdded) => {
                 console.log("1st time", error, rsvpAdded);
                 if (error) {
                     res.json(400, { 'status': 'error', 'data': 'Failed to rsvp event' });

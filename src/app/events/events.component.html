@@ -5,13 +5,16 @@
                 <div class="title_style">
                     <span class="key_data">Title </span>:
                     <span class="upper_case">{{event.eventName}}</span>
+                    <span *ngIf="event.editable" data-toggle="modal" data-target="#myModal" style="float:right;cursor:pointer" (click)="editEvent(event)">Edit</span>
                 </div>
                 <div class="img_card">
                     <img src={{event.image}} height="200px">
                 </div>
                 <div class="row event_desc">
                     <div class="col-xs-12 col-sm-6">
-                        <span class="key_data">Description </span>: {{event.description}}</div>
+                        <span class="key_data">Description </span>:
+                        <span class="alignments" style="overflow:scroll">{{event.description}}</span>
+                    </div>
                     <div class="col-xs-12 col-sm-6">
                         <table>
                             <tr>
@@ -20,40 +23,44 @@
                                 </td>
                                 <td>:</td>
                                 <td>
-                                    <span *ngFor="let category of event.categoryId">{{category}}</span>
+                                    <span *ngFor="let category of event.categoryId" class="alignments" title={{category.itemName}}>{{category.id}}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <span class="key_data">Created Date</span>
+                                    <span class="key_data">Event Date</span>
                                 </td>
                                 <td>:</td>
-                                <td>{{event.createdDate}}</td>
+                                <td>
+                                    <span class="alignments">{{event.eventDate}}</span>
+                                </td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="row event_likes">
                     <div class="col-xs-12 col-sm-4 center_align">
-                        <span *ngIf="nolike" class="pointer" (click)="likeEvent(event.eventId,event.userId)">
+
+                        <span *ngIf=!event.alreadyLiked class="pointer" (click)="likeEvent(event.eventId,event.userId)">
                             <i class="far fa-thumbs-up"></i>
                             <span> Like</span>
                         </span>
-                        <span *ngIf="like">
+                        <span *ngIf=event.alreadyLiked>
                             <i class="fas fa-thumbs-up like_color"></i>
                             <span class="like_color"> Like</span>
                         </span>
                     </div>
                     <div class="col-xs-12 col-sm-4 center_align">
                         <div class="pointer" (click)="rsvpEvent(event.eventId,event.userId)">
-                            <span *ngIf="norsvp">Rsvp</span>
-                            <span class="like_color" *ngIf="rsvp">Rsvp
+                            <span *ngIf=!event.alreadyRsvp>Rsvp</span>
+                            <span class="like_color" *ngIf=event.alreadyRsvp>Rsvp
                                 <i class="fas fa-check like_color"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-4 center_align">
-                        <span class="key_data">Location</span> : {{event.location}}
+                    <div class="col-xs-12 col-sm-4 center_align" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                        <span class="key_data">Location</span> :
+                        <span title={{event.location}} class="alignments">{{event.location}}</span>
                     </div>
                 </div>
             </div>
@@ -61,3 +68,81 @@
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title center_align">Update Event</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="center_align">
+                    <span style="color:green">{{successAlert}}</span>
+                    <span style="color:red">{{failureAlert}}</span>
+                </div>
+
+                <form class="form-horizontal" action="/action_page.php">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Title:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" [(ngModel)]="updateEventTitle" name="title" placeholder="Event title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Category:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" [(ngModel)]="updateEventCategory" name="category" disabled>
+                                <option value="category1">Category 1</option>
+                                <option value="category2">Category 2</option>
+                                <option value="category3">Category 3</option>
+                                <option value="category4">Category 4</option>
+                                <option value="category5">Category 5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Location:</label>
+                        <div class="col-sm-10">
+                            <!-- <div id="map"></div>
+                                    <input id="searchTextField" type="text" placeholder="Enter location" [(ngModel)]="eventLocation" name="location" >
+                                          -->
+                            <input type="text" class="form-control" [(ngModel)]="updateEventLocation" placeholder="Event location" name="location" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Date-Time:</label>
+
+                        <div class="col-sm-5">
+                            <input class="datePicker" type="datetime-local" name="bdaytime" [(ngModel)]="updateEventDate">
+                        </div>
+                        <div class="col-sm-5" style="margin-top:5px">
+                            <span >({{updateEventDate}})</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Description:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" placeholder="Enter description" [(ngModel)]="updateEventDesc" name="desc"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default" (click)="updateEvent()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
