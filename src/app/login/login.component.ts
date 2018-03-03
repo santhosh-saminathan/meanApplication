@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from './../services/login.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { error } from 'selenium-webdriver';
 
 
 @Component({
@@ -12,6 +13,7 @@ export class LoginComponent {
     name:string;
     password:string;
     userId:any;
+    errorData:any;
 
     constructor(private loginService:LoginService,private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -29,9 +31,10 @@ export class LoginComponent {
             this.userId = data;
             localStorage.setItem('userId',this.userId)
             this.router.navigate(['/events'])
-        },
-            err => console.error(err),
-            () => console.log('done loading'));
+        },(error)=>{
+            console.log(error)
+            this.errorData = error.error.data;
+        })
 
     }
 
