@@ -40,3 +40,12 @@
 .title_style{
     padding: 8px 15px;
 }
+.like_color{
+    color:blue;
+}
+.pointer{
+    cursor: pointer;
+}
+.checkbox{
+    margin-top:0px;
+}

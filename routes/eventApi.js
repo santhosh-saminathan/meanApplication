@@ -6,6 +6,8 @@ const EventCollection  = mongoose.model('Event');
 const createEvent = (req,res) =>{
     let eventId;
 
+    console.log(req.body);
+
     EventCollection.find().sort({ field: 'asc', _id: -1 }).limit(1).exec(function(err, event) {
         if(event.length === 0){
             eventId = "E001"

@@ -45,6 +45,7 @@ app.post('/signup',require('./routes/userApi').createUser);
 app.post('/event/create',require('./routes/eventApi').createEvent);
 app.post('/all/events',require('./routes/eventApi').allEvents);
 app.post('/event/like',require('./routes/eventLikeRsvpApi').likeEvent);
+app.post('/event/rsvp',require('./routes/eventLikeRsvpApi').rsvpEvent);
 
 app.listen(app.get('port'), () => {
     console.log('Express server started');

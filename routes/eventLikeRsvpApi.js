@@ -31,7 +31,7 @@ const likeEvent = (req, res) => {
 
             EventDetailsCollection.findOneAndUpdate({
                 'eventId': req.body.eventId
-            }, { $push: { 'likes': req.body.likedUserId } }, { new: true })
+            }, { $addToSet: { 'likes': req.body.likedUserId } }, { new: true })
                 .exec((error, updatedDetails) => {
                     console.log("update time", error, updatedDetails);
                     if (error) {
@@ -52,6 +52,49 @@ const likeEvent = (req, res) => {
 
 }
 
+
+const rsvpEvent = (req, res) => {
+
+    EventDetailsCollection.findOne({ 'eventId': req.body.eventId }, function (err, event) {
+
+        if (event == null) {
+            let eventDetailsObj = {
+                'eventId': req.body.eventId,
+                'userId': req.body.userId,
+                'likes': [],
+                'rsvp': req.body.rsvpUserId
+            }
+            let EventDetailsNewCollection = new EventDetailsCollection(eventDetailsObj);
+
+            EventDetailsNewCollection.save((error, likeAdded) => {
+                console.log("1st time", error, rsvpAdded);
+                if (error) {
+                    res.json(400, { 'status': 'error', 'data': 'Failed to rsvp event' });
+                }
+                else {
+                    res.json(201, rsvpAdded);
+                }
+            })
+        } else {
+
+            EventDetailsCollection.findOneAndUpdate({
+                'eventId': req.body.eventId
+            }, { $addToSet: { 'rsvp': req.body.rsvpUserId } }, { new: true })
+                .exec((error, updatedDetails) => {
+                    console.log("update time", error, updatedDetails);
+                    if (error) {
+                        res.json(400, { 'status': 'error', 'data': 'Failed to update likes' });
+                    }
+                    else {
+                        res.json(200, updatedDetails);
+                    }
+                })
+
+        }
+     });
+}
+
 module.exports = {
-    likeEvent: likeEvent
+    likeEvent: likeEvent,
+    rsvpEvent:rsvpEvent
 }

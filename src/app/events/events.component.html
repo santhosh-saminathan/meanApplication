@@ -6,46 +6,58 @@
                     <span class="key_data">Title </span>:
                     <span class="upper_case">{{event.eventName}}</span>
                 </div>
-                    <div class="img_card">
-                        <img src={{event.image}} height="200px">
-                    </div>
-                    <div class="row event_desc">
-                        <div class="col-xs-12 col-sm-6">
-                            <span class="key_data">Description </span>: {{event.description}}</div>
-                        <div class="col-xs-12 col-sm-6">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <span class="key_data">Category</span>
-                                    </td>
-                                    <td>:</td>
-                                    <td>
-                                        <span *ngFor="let category of event.categoryId">{{category}}</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="key_data">Created Date</span>
-                                    </td>
-                                    <td>:</td>
-                                    <td>{{event.createdDate}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row event_likes">
-                        <div class="col-xs-12 col-sm-4 center_align">
-                            <span (click)="likeEvent(event.eventId,event.userId)"><i class="far fa-thumbs-up"></i>Like</span>
-                        </div>
-                        <div class="col-xs-12 col-sm-4 center_align">
-                            <span>Rvsp</span>
-                        </div>
-                        <div class="col-xs-12 col-sm-4 center_align">
-                            <span class="key_data">Location</span> : {{event.location}}
-                        </div>
+                <div class="img_card">
+                    <img src={{event.image}} height="200px">
+                </div>
+                <div class="row event_desc">
+                    <div class="col-xs-12 col-sm-6">
+                        <span class="key_data">Description </span>: {{event.description}}</div>
+                    <div class="col-xs-12 col-sm-6">
+                        <table>
+                            <tr>
+                                <td>
+                                    <span class="key_data">Category</span>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <span *ngFor="let category of event.categoryId">{{category}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="key_data">Created Date</span>
+                                </td>
+                                <td>:</td>
+                                <td>{{event.createdDate}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-
+                <div class="row event_likes">
+                    <div class="col-xs-12 col-sm-4 center_align">
+                        <span *ngIf="nolike" class="pointer" (click)="likeEvent(event.eventId,event.userId)">
+                            <i class="far fa-thumbs-up"></i>
+                            <span> Like</span>
+                        </span>
+                        <span *ngIf="like">
+                            <i class="fas fa-thumbs-up like_color"></i>
+                            <span class="like_color"> Like</span>
+                        </span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 center_align">
+                        <div class="pointer" (click)="rsvpEvent(event.eventId,event.userId)">
+                            <span *ngIf="norsvp">Rsvp</span>
+                            <span class="like_color" *ngIf="rsvp">Rsvp
+                                <i class="fas fa-check like_color"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 center_align">
+                        <span class="key_data">Location</span> : {{event.location}}
+                    </div>
+                </div>
             </div>
+
         </div>
+    </div>
 </section>
