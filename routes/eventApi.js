@@ -33,7 +33,7 @@ const createEvent = (req, res) => {
 
         EventNewCollection.save((error, eventCreated) => {
             if (error) {
-                res.json(400, { 'status': 'error', 'data': 'Failed to create event' });
+                res.json(400, { 'status': 'error', 'data': error });
             }
             else {
                 res.json(201, eventCreated);
@@ -60,7 +60,6 @@ const allEvents = (req, res) => {
                     }
                     allEvents.push(data);
                     if (events.length === count) {
-                        console.log(allEvents);
                         res.status(200).json(allEvents);
                     }
                 });

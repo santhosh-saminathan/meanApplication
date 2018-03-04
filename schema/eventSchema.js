@@ -8,10 +8,7 @@ const event = new Schema({
     'userId': String,
     'createdDate': Date,
     'updated': Date,
-    'categoryId': [{
-        'id': Number,
-        'itemName': String
-    }],
+    'categoryId': [],
     'description': String,
     'image': String,
     'location': String,

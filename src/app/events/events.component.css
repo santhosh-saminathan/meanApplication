@@ -4,9 +4,9 @@
     display: block;
 }
 .event_card{
-    height: 300px;
+    height: 400px;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 .inner_card{
     width: 60%;
@@ -22,15 +22,15 @@
     text-align: center;
 }
 .event_desc{
-    height: 20%;
+    height: 30%;
     padding: 10px 0px;
-   
+    border-bottom:1px solid #CDCDCD;
     /* border: 1px solid blue; */
 }
 .event_likes{
     height: 10%;
     padding: 5px 0px;
-    border-top:1px solid #CDCDCD;
+    /* border-top:1px solid #CDCDCD; */
     /* border: 1px solid green; */
 }
 .alignments{
@@ -62,3 +62,33 @@
     border: 1px solid #CCCCCC;
     margin-top:5px;
 }
+.serach_box{
+    width: 60%;
+    margin: 0 auto;
+}
+
+/* #map {
+    height: 0%;
+    display: none;
+  }
+
+  #searchTextField {
+    font-size: 14px;
+    text-overflow: ellipsis;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #CCCCCC;
+    height:30px;
+    padding-left: 5px;
+    z-index: 10051 !important;
+  }
+
+  #searchTextField:focus {
+    border: 1px solid #4d90fe;
+    border-color: #4d90fe;
+   
+  }
+
+  .pac-container {
+    z-index: 10051 !important;
+} */

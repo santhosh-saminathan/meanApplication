@@ -2,6 +2,15 @@
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const UserCollection  = mongoose.model('User');
+var Cryptr = require('cryptr'),
+    cryptr = new Cryptr('myTotalySecretKey');
+ 
+ 
+// var encryptedString = cryptr.encrypt('bacon'),
+//     decryptedString = cryptr.decrypt(encryptedString);
+ 
+// console.log(encryptedString);  
+// console.log(decryptedString);  
 
 
 const createUser = (req,res) =>{
@@ -18,7 +27,7 @@ const createUser = (req,res) =>{
             'userId': userId,
             'userName':req.body.userName,
             'userEmail':req.body.email,
-            'password':req.body.password,
+            'password':cryptr.encrypt(req.body.password),
             'createdDate':new Date(Date.now()),
             'updated': new Date(Date.now()),
             'phone':req.body.phoneNumber,
@@ -43,7 +52,7 @@ const createUser = (req,res) =>{
 
 const loginUser = (req,res) =>{
     
-    UserCollection.findOne({'userEmail': req.body.userEmail,'password':req.body.password}, function(err,user) { 
+    UserCollection.findOne({'userEmail': req.body.userEmail,'password':cryptr.encrypt(req.body.password)}, function(err,user) { 
        if(err || user == null){
             res.status(400).json( {'status': 'error', 'data': 'Invalid User/Password' });
         }else{

@@ -83,7 +83,7 @@ export class CreateEventComponent {
         console.log(this.autocomplete.gm_accessors_.place.dd.l);
         console.log(this.autocomplete.gm_accessors_.place.dd.formattedPrediction);
 
-
+        console.log(this.selectedItems);
 
         let event = {
             'userId': localStorage.getItem('userId'),

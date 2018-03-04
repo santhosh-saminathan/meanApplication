@@ -1,3 +1,4 @@
+
 'use strict';
 const crypto = require('crypto');
 const mongoose = require('mongoose');
@@ -8,8 +9,9 @@ const EventDetailsCollection = mongoose.model('EventDetails');
 const likeEvent = (req, res) => {
 
     EventDetailsCollection.findOne({ 'eventId': req.body.eventId }, function (err, event) {
-
-        if (event == null) {
+        console.log("like function", err, event);
+        if (event === null) {
+            console.log("New event");
             let eventDetailsObj = {
                 'eventId': req.body.eventId,
                 'userId': req.body.userId,
@@ -19,7 +21,7 @@ const likeEvent = (req, res) => {
             let EventDetailsNewCollection = new EventDetailsCollection(eventDetailsObj);
 
             EventDetailsNewCollection.save((error, likeAdded) => {
-                console.log("1st time", error, likeAdded);
+                console.log("1st time save event", error, likeAdded);
                 if (error) {
                     res.json(400, { 'status': 'error', 'data': 'Failed to like event' });
                 }
@@ -28,12 +30,13 @@ const likeEvent = (req, res) => {
                 }
             })
         } else {
+            console.log("Event already exists");
 
             EventDetailsCollection.findOneAndUpdate({
                 'eventId': req.body.eventId
             }, { $addToSet: { 'likes': req.body.likedUserId } }, { new: true })
                 .exec((error, updatedDetails) => {
-                    console.log("update time", error, updatedDetails);
+                    console.log("update event", error, updatedDetails);
                     if (error) {
                         res.json(400, { 'status': 'error', 'data': 'Failed to update likes' });
                     }
@@ -91,10 +94,10 @@ const rsvpEvent = (req, res) => {
                 })
 
         }
-     });
+    });
 }
 
 module.exports = {
     likeEvent: likeEvent,
-    rsvpEvent:rsvpEvent
+    rsvpEvent: rsvpEvent
 }
