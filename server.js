@@ -4,9 +4,11 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 app.set('port', (process.env.PORT || 3000));
+
 
 var userSchema = require(path.resolve('./schema/userSchema.js'));
 var eventSchema = require(path.resolve('./schema/eventSchema.js'));

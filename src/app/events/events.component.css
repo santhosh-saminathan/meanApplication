@@ -11,21 +11,21 @@
 .inner_card{
     width: 60%;
     margin: 0 auto;
-    /* border: 1px solid greenyellow; */
     box-shadow: 6px 6px 10px 2px #ccc;
-    padding: 2px 0px;
+    padding: 5px 0px;
     border: 1px solid gainsboro;
+    border-radius: 3px;
 }
 .img_card{
     height: 70%;
-    background: #EFEFEF;
+    padding: 0px 5px;
     text-align: center;
+    border-bottom:1px solid #CDCDCD;
 }
 .event_desc{
     height: 30%;
     padding: 10px 0px;
     border-bottom:1px solid #CDCDCD;
-    /* border: 1px solid blue; */
 }
 .event_likes{
     height: 10%;
@@ -46,6 +46,7 @@
 }
 .title_style{
     padding: 8px 15px;
+    border-bottom:1px solid #CDCDCD;
 }
 .like_color{
     color:blue;
@@ -65,6 +66,15 @@
 .serach_box{
     width: 60%;
     margin: 0 auto;
+}
+.image_background{
+    background: #F9F9F9;
+    padding: 5px 0px;
+}
+.edit_option{
+    float:right;
+    cursor:pointer;
+    color:blue;
 }
 
 /* #map {

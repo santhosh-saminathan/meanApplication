@@ -7,7 +7,6 @@ const EventDetailsCollection = mongoose.model('EventDetails');
 
 const createEvent = (req, res) => {
     let eventId;
-
     EventCollection.find().sort({ field: 'asc', _id: -1 }).limit(1).exec(function (err, event) {
         if (event.length === 0) {
             eventId = "E001"
@@ -24,7 +23,7 @@ const createEvent = (req, res) => {
             'eventName': req.body.eventName,
             'categoryId': req.body.categoryId,
             'description': req.body.description,
-            'image': 'http://www.gstatic.com/webp/gallery/2.jpg',
+            'image': req.body.image,
             'location': req.body.location,
             'approved': 'true'
         }

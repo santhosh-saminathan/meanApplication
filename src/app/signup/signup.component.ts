@@ -19,6 +19,7 @@ export class SignupComponent {
     phoneNumber: any;
     zipCode: any;
     imageId: string;
+    errorData:String;
 
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'santhosh001', uploadPreset: 'saiaawaf' })
@@ -38,49 +39,37 @@ export class SignupComponent {
     }
 
     signUp() {
-        console.log(this.userName,this.email,this.password,this.confirmPassword,this.phoneNumber,this.zipCode)
-        if(this.password!=this.confirmPassword)
-        window.alert("password and confirm password didn't match");
-        else if(!this.userName || !this.email || !this.password || !this.confirmPassword || !this.phoneNumber || !this.zipCode){
-            window.alert("All fields are necessary")
-        }else{
-            let userObj = {
-                'userName':this.userName,
-                'email':this.email,
-                'password':this.password,
-                'phoneNumber':this.phoneNumber,
-                'zipCode':this.zipCode
+
+        if(this.userName && this.email && this.password && this.confirmPassword && this.phoneNumber && this.zipCode){
+          
+            if(this.password===this.confirmPassword){
+                let userObj = {
+                    'userName':this.userName,
+                    'email':this.email,
+                    'password':this.password,
+                    'phoneNumber':this.phoneNumber,
+                    'zipCode':this.zipCode
+                }
+                this.signupService.signupUser(userObj).subscribe(data => {
+                    this.router.navigate(['/login'])
+                },
+                    err => {
+                        console.log(err.error.data);
+                        this.errorData = err.error.data;
+                    });
+            }else{
+                this.errorData = "Password and Confirm Password not matching";
             }
-            this.signupService.signupUser(userObj).subscribe(data => {
-                this.router.navigate(['/login'])
-            },
-                err => console.error(err),
-                () => console.log('done loading'));
-    
+        }else{
+            this.errorData = "All Fields are necessary for signup";
         }
+
     }
 
     backToLogin(){
         this.router.navigate(['/login'])
 
     }
-
-    // public uploadImage(): void {
-    //     let files = this.elem.nativeElement.querySelector('#selectFile').files;
-    //     console.log(files);
-    //     let form_Data = new FormData();
-    //     let file = files[0];
-    //     console.log(file);
-    //     // form_Data.append('file', file, file.name);
-    //     // console.log(file);
-    //     form_Data.append('avatar', file, file.name);
-    //     this.signupService.upload(form_Data).subscribe(data => {
-    //         console.log(data);
-    //         //window.alert("Success"); // used window.alert for demo purpose;
-    //     },
-    //         err => console.error(err),
-    //         () => console.log('done loading'));; 
-    //   }
 
 
 

@@ -23,18 +23,23 @@ export class LoginComponent {
 
     login(){
         console.log("inside login function",this.name,this.password);
-        let data = {
-            'userEmail':this.name,
-            'password':this.password
+        if(this.name && this.password){
+            let data = {
+                'userEmail':this.name,
+                'password':this.password
+            }
+            this.loginService.loginUser(data).subscribe(data => {
+                this.userId = data;
+                localStorage.setItem('userId',this.userId)
+                this.router.navigate(['/events'])
+            },(error)=>{
+                console.log(error)
+                this.errorData = error.error.data;
+            })
+        }else{
+            this.errorData = "Please Enter Email and Password";
         }
-        this.loginService.loginUser(data).subscribe(data => {
-            this.userId = data;
-            localStorage.setItem('userId',this.userId)
-            this.router.navigate(['/events'])
-        },(error)=>{
-            console.log(error)
-            this.errorData = error.error.data;
-        })
+        
 
     }
 

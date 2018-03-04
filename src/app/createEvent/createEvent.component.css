@@ -4,6 +4,17 @@
     border: 1px solid #CCCCCC;
     margin-top:5px;
 }
+.image_input_style{
+  border: 1px solid #CCCCCC;
+  width: 100%;
+}
+
+.warning_text{
+  text-align: center;
+  color: red;
+  margin: 0 auto;
+  display: block;
+}
 
 #map {
     height: 0%;

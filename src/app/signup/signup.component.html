@@ -1,65 +1,51 @@
-<section class="signup">
-    <div class="row">
+<section class="page">
+    <div class="row signup">
         <div class="col-xs-12 col-sm-3 col-md-4"></div>
-        <div class="col-xs-12 col-sm-6 col-md-4">
-            <fieldset>
-                <legend>
-                    <h5>SignUp</h5>
-                </legend>
+        <div class="col-xs-12 col-sm-6 col-md-4 signup_box">
+            <div class="header">Sign Up</div>
+            <p class="warning">{{errorData}}</p>
+            <div class="form-group">
+                <label for="name">User name:</label>
+                <input type="text" class="form-control" [(ngModel)]="userName" name="username">
+            </div>
 
-                <div class="form-group">
-                    <label for="name">User name:</label>
-                    <input type="text" class="form-control" [(ngModel)]="userName" name="username">
-                </div>
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" [(ngModel)]="email" name="email">
+            </div>
 
-                <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" class="form-control" [(ngModel)]="email" name="email">
-                </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" [(ngModel)]="password" name="password">
+            </div>
 
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" [(ngModel)]="password" name="password">
-                </div>
+            <div class="form-group">
+                <label for="confirm password">Confirm Password:</label>
+                <input type="password" class="form-control" [(ngModel)]="confirmPassword" name="conform_password">
+            </div>
 
-                <div class="form-group">
-                    <label for="confirm password">Confirm Password:</label>
-                    <input type="password" class="form-control" [(ngModel)]="confirmPassword" name="conform_password">
-                </div>
+            <div class="form-group">
+                <label for="mobile">Phone Number:</label>
+                <input type="number" class="form-control" min="1" max="9999999999" [(ngModel)]="phoneNumber" name="mobile">
+            </div>
 
-                <div class="form-group">
-                    <label for="mobile">Phone Number:</label>
-                    <input type="number" class="form-control" [(ngModel)]="phoneNumber" name="mobile">
-                </div>
+            <div class="form-group">
+                <label for="zip">Zip Code:</label>
+                <input type="text" class="form-control" [(ngModel)]="zipCode" name="zip">
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary btn-sm" (click)="signUp()">Sign Up</button>
+                <button style="float:right" type="button" class="btn btn-link" (click)="backToLogin()">Login</button>
 
-                <div class="form-group">
-                    <label for="zip">Zip Code:</label>
-                    <input type="text" class="form-control" [(ngModel)]="zipCode" name="zip">
-                </div>
-                <div class="row">
-                    <button type="submit" class="btn btn-primary btn-sm" (click)="signUp()">Sign Up</button>
-                    <button type="button" class="btn btn-link" (click)="backToLogin()">Login</button>
+            </div>
 
-                </div>
-            </fieldset>
         </div>
 
     </div>
 </section>
 
-<input type="file" ng2FileSelect [uploader]="uploader" accept="image/*;capture=camera">
+<!-- <input type="file" ng2FileSelect [uploader]="uploader" accept="image/*;capture=camera">
 
 <button (click)="upload()">Upload</button>
 
-<cl-image [public-id]="imageId" [cloud-name]="uploader.cloudName"></cl-image>
-
-<!-- <cl-image public-id="sample" class="thumbnail inline" angle="20" format="jpg">
-    <cl-transformation height="150" width="150" crop="fill" effect="sepia" radius="20"></cl-transformation>
-    <cl-transformation overlay="text:arial_60:sample" gravity="north" y="20"></cl-transformation>
-</cl-image>
-
-<cl-image public-id="biouc9bv5ri4igjrat64" class="thumbnail inline" format="jpg">
-</cl-image>
-
-<input type="file" id="selectFile" name="selectFile" class="btn btn-success" />
-<button class="btn btn-success btn-xs" (click)="uploadImage()">Uplaod</button> -->
+<cl-image [public-id]="imageId" [cloud-name]="uploader.cloudName"></cl-image> -->

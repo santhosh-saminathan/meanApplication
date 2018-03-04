@@ -15,6 +15,8 @@ export class CreateEventComponent {
     eventDate: any;
     eventDesc: any;
     autocomplete: any;
+    image: any;
+    fieldsMissing:boolean = false;
 
     dropdownList = [];
     selectedItems = [];
@@ -34,7 +36,7 @@ export class CreateEventComponent {
             { "id": 7, "itemName": "category 7" },
             { "id": 8, "itemName": "category 8" }
         ];
-        this.selectedItems = [ ];
+        this.selectedItems = [];
         this.dropdownSettings = {
             singleSelection: false,
             text: "Select Categories",
@@ -57,49 +59,56 @@ export class CreateEventComponent {
     }
 
     onItemSelect(item: any) {
-        console.log(item);
-        console.log(this.selectedItems);
+        // console.log(item);
+        // console.log(this.selectedItems);
     }
     OnItemDeSelect(item: any) {
-        console.log(item);
-        console.log(this.selectedItems);
+        // console.log(item);
+        // console.log(this.selectedItems);
     }
     onSelectAll(items: any) {
-        console.log(items);
+        // console.log(items);
     }
     onDeSelectAll(items: any) {
-        console.log(items);
+        // console.log(items);
+    }
+
+    public fileChangeListener($event) {
+        let file = $event.target.files[0];
+        const myReader: FileReader = new FileReader();
+        const that = this;
+        myReader.onloadend = (loadEvent: any) => {
+            this.image = loadEvent.target.result;
+            console.log('file load', loadEvent.target.result);
+        };
+        myReader.readAsDataURL(file);
     }
 
     createEvent() {
-        // console.log(this.eventTitle, this.eventCategory, this.eventDate, this.eventLocation, this.eventDesc);
 
-        // let files = this.elem.nativeElement.querySelector('#selectFile').files;
-        // console.log(files);
-        // let form_Data = new FormData();
-        // let file = files[0];
-        // console.log(file);
-        // form_Data.append('file', file, file.name);
-        console.log(this.autocomplete.gm_accessors_.place.dd.l);
-        console.log(this.autocomplete.gm_accessors_.place.dd.formattedPrediction);
+        if (this.eventTitle && this.selectedItems && this.eventDesc && this.autocomplete.gm_accessors_.place.dd.formattedPrediction && this.eventDate && this.image) {
+            this.fieldsMissing = false;
+            let event = {
+                'userId': localStorage.getItem('userId'),
+                'eventName': this.eventTitle,
+                'categoryId': this.selectedItems,
+                'description': this.eventDesc,
+                'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction,
+                'eventDate': this.eventDate,
+                'image': this.image
+            }
+            this.eventService.createEvent(event).subscribe(data => {
+                this.router.navigate(['/events']);
+                console.log(data);
 
-        console.log(this.selectedItems);
-
-        let event = {
-            'userId': localStorage.getItem('userId'),
-            'eventName': this.eventTitle,
-            'categoryId': this.selectedItems,
-            'description': this.eventDesc,
-            'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction,
-            'eventDate': this.eventDate
+            },err => {
+                    console.log(err);
+                });
+        }else{
+            this.fieldsMissing = true;
         }
-        this.eventService.createEvent(event).subscribe(data => {
-            this.router.navigate(['/events']);
-            console.log(data);
 
-        },
-            err => console.error(err),
-            () => console.log('done loading'));
+
     }
 
 

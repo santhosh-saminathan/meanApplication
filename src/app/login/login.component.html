@@ -1,20 +1,21 @@
-<section class="login">
-    <div class="row">
+<section class="page">
+    <div class="row login">
         <div class="col-xs-12 col-sm-3 col-md-4"></div>
-        <div class="col-xs-12 col-sm-6 col-md-4">
-            <p style="color:red">{{errorData}}</p>
-            <h5>Login</h5>
+        <div class="col-xs-12 col-sm-6 col-md-4 login_box">
+            <div class="heading">Login</div>
+            <p class="error_data" style="color:red">{{errorData}}</p>
+
             <div class="form-group">
                 <label for="usr">UserEmail:</label>
                 <input type="email" class="form-control" [(ngModel)]="name" name="email">
             </div>
             <div class="form-group">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" [(ngModel)]="password"  name="password">
+                <input type="password" class="form-control" [(ngModel)]="password" name="password">
             </div>
-            
+
             <button type="submit" class="btn btn-primary btn-sm" (click)="login()">Login</button>
-            <button type="button" class="btn btn-link" (click)="register()">Register</button>
+            <button style="float:right" type="button" class="btn btn-link" (click)="register()">Register</button>
 
         </div>
     </div>
