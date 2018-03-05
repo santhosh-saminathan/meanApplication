@@ -24,5 +24,15 @@ export class EventService {
     return this.http.post("http://localhost:3000/event/update",data);
 
   }
+  unlikeEvent(data){
+    return this.http.post("http://localhost:3000/event/unlike",data);
+  }
+  uncheckRsvp(data){
+    return this.http.post("http://localhost:3000/event/uncheck/rsvp",data);
+  }
+  removeEvent(data){
+    console.log(data);
+    return this.http.post("http://localhost:3000/event/remove",data);
+  }
 
 }

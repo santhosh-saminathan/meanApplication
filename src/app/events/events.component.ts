@@ -23,10 +23,10 @@ export class EventComponent {
     successAlert: any;
     failureAlert: any;
     filterText: any;
-    backupArray:any;
-    dropdownList:any;
-    dropdownSettings:any;
-    autocomplete:any;
+    backupArray: any;
+    dropdownList: any;
+    dropdownSettings: any;
+    autocomplete: any;
 
     constructor(private eventService: EventService, private router: Router) { }
 
@@ -54,7 +54,7 @@ export class EventComponent {
             { "id": 7, "itemName": "category 7" },
             { "id": 8, "itemName": "category 8" }
         ];
-        this.updateEventCategory = [ ];
+        this.updateEventCategory = [];
         this.dropdownSettings = {
             singleSelection: false,
             text: "Select Categories",
@@ -63,20 +63,20 @@ export class EventComponent {
             enableSearchFilter: false,
             classes: "myclass custom-class"
         };
-        
-        
+
+
     }
 
     filterArray(data) {
-       let temp = []
+        let temp = []
 
         this.backupArray.filter(function (el) {
-            if(el.eventName.includes(data)){
+            if (el.eventName.includes(data)) {
                 temp.push(el);
             }
-          });
+        });
 
-          this.allEvents = temp;
+        this.allEvents = temp;
 
     }
 
@@ -95,7 +95,7 @@ export class EventComponent {
             this.allEvents.forEach(event => {
 
                 console.log(event);
-               
+
                 if (event.userId === localStorage.getItem('userId')) {
                     event.editable = true;
                 }
@@ -157,14 +157,14 @@ export class EventComponent {
     }
 
     editEvent(event) {
-      
+
         console.log(event);
         this.updateEventTitle = event.eventName;
         this.updateEventDesc = event.description;
         this.updateEventDate = event.eventDate;
         this.updateEventLocation = event.location;
         this.eventId = event.eventId;
-       this.updateEventCategory = event.categoryId;
+        this.updateEventCategory = event.categoryId;
 
         this.successAlert = "";
         this.failureAlert = "";
@@ -191,6 +191,47 @@ export class EventComponent {
 
 
     }
+    removeEvent(eventId){
+        console.log("Event id",eventId);
+        let data = {
+            'eventId': eventId,
+        }
+        this.eventService.removeEvent(data).subscribe(data => {
+            console.log(data);
+            this.getAllEve();
+        }, err => {
+            console.log("Error removing event");
+        })
+    }
+
+    unlikeEvent(eventId, userId) {
+        console.log(event, userId);
+        let data = {
+            'unlikedUserId': localStorage.getItem('userId'),
+            'eventId': eventId
+        }
+        this.eventService.unlikeEvent(data).subscribe(data => {
+            console.log(data);
+            this.getAllEve();
+        },
+            err => console.error(err),
+            () => console.log('done loading'));
+    }
+
+    uncheckRsvp(eventId, userId) {
+        console.log(event, userId);
+        let data = {
+            'uncheckedRsvpUserId': localStorage.getItem('userId'),
+            'eventId': eventId
+        }
+        this.eventService.uncheckRsvp(data).subscribe(data => {
+            console.log(data);
+            this.getAllEve();
+        },
+            err => console.error(err),
+            () => console.log('done loading'));
+    }
+
 
 
 }

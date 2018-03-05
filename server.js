@@ -49,6 +49,10 @@ app.post('/all/events',require('./routes/eventApi').allEvents);
 app.post('/event/like',require('./routes/eventLikeRsvpApi').likeEvent);
 app.post('/event/rsvp',require('./routes/eventLikeRsvpApi').rsvpEvent);
 app.post('/event/update',require('./routes/eventApi').updateEvent);
+app.post('/event/unlike',require('./routes/eventLikeRsvpApi').unlikeEvent);
+app.post('/event/uncheck/rsvp',require('./routes/eventLikeRsvpApi').uncheckRsvp);
+app.post('/event/remove',require('./routes/eventApi').removeEvent);
+
 
 app.listen(app.get('port'), () => {
     console.log('Express server started');

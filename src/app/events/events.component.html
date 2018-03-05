@@ -9,6 +9,7 @@
                 <div class="title_style">
                     <span class="key_data">Title </span>:
                     <span class="upper_case">{{event.eventName}}</span>
+                    <span class="remove_option" (click)="removeEvent(event.eventId)">Delete</span>
                     <span class="edit_option" *ngIf="event.editable" data-toggle="modal" data-target="#myModal" (click)="editEvent(event)">
                         <i class="far fa-edit"></i>
                         Edit</span>
@@ -45,7 +46,7 @@
                                 <span *ngIf="event.totalLikes">({{event.totalLikes}})</span>
                             </span>
                         </span>
-                        <span *ngIf=event.alreadyLiked>
+                        <span *ngIf=event.alreadyLiked class="pointer" (click)="unlikeEvent(event.eventId,event.userId)">
                             <i class="fas fa-thumbs-up like_color"></i>
                             <span class="like_color"> Like
                                 <span *ngIf="event.totalLikes">({{event.totalLikes}})</span>
@@ -53,11 +54,11 @@
                         </span>
                     </div>
                     <div class="col-xs-12 col-sm-3 center_align">
-                        <div class="pointer" (click)="rsvpEvent(event.eventId,event.userId)">
-                            <span *ngIf=!event.alreadyRsvp>Rsvp
+                        <div >
+                            <span *ngIf=!event.alreadyRsvp class="pointer" (click)="rsvpEvent(event.eventId,event.userId)">Rsvp
                                 <span *ngIf="event.totalRsvp">({{event.totalRsvp}})</span>
                             </span>
-                            <span class="like_color" *ngIf=event.alreadyRsvp>Rsvp
+                            <span class="like_color pointer" *ngIf=event.alreadyRsvp (click)="uncheckRsvp(event.eventId,event.userId)" >Rsvp
                                 <i class="fas fa-check like_color"></i>
                                 <span *ngIf="event.totalRsvp">({{event.totalRsvp}})</span>
                             </span>

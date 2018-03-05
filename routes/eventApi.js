@@ -92,9 +92,24 @@ const updateEvent = (req, res) => {
 
 }
 
+const removeEvent = (req,res)=>{
+    console.log(req.body);
+    EventCollection.findOneAndRemove({ 'eventId': req.body.eventId }, function (err, removedEvent) {
+        console.log(err,removedEvent);
+         if (err) {
+             res.json(400, { 'status': 'error', 'data': 'Failed to update event' });
+         }
+         else {
+             res.json(200, removedEvent);
+         }
+     });
+   
+}
+
 
 module.exports = {
     createEvent: createEvent,
     allEvents: allEvents,
-    updateEvent: updateEvent
+    updateEvent: updateEvent,
+    removeEvent:removeEvent
 }

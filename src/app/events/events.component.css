@@ -76,6 +76,14 @@
     cursor:pointer;
     color:blue;
 }
+.remove_option{
+    float:right;
+    cursor:pointer;
+    margin-left: 20px;
+}
+.remove_option:hover{
+    color:red;
+}
 
 /* #map {
     height: 0%;
