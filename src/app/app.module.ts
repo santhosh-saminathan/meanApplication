@@ -17,6 +17,7 @@ import { CategoryComponent } from './category/category.component';
 import { CreateEventComponent } from './createEvent/createEvent.component';
 import { EventService } from './services/events.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { EventDetailsComponent } from './eventDetails/eventDetails.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -28,6 +29,7 @@ const appRoutes = [
   { path: 'events', component: SidebarComponent },
   { path: 'createEvent', component: SidebarComponent },
   { path: 'category', component: SidebarComponent },
+  { path: 'event/details', component: EventDetailsComponent}
 ]
 
 @NgModule({
@@ -38,7 +40,8 @@ const appRoutes = [
     EventComponent,
     SidebarComponent,
     CreateEventComponent,
-    CategoryComponent
+    CategoryComponent,
+    EventDetailsComponent
   ],
   imports: [
     BrowserModule,
