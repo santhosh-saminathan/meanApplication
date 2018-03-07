@@ -39,12 +39,18 @@ export class LoginComponent {
         }else{
             this.errorData = "Please Enter Email and Password";
         }
-        
-
     }
 
     register(){
         this.router.navigate(['/signup'])
 
+    }
+
+    createAdmin(){
+        this.loginService.createAdmin({'userEmail':'admin','password':'admin'}).subscribe(data=>{
+            console.log(data);
+        },err=>{
+            console.log(err);
+        })
     }
 }

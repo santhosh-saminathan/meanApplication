@@ -135,17 +135,18 @@ const approveEvent = (req, res) => {
 
 const removeEvent = (req, res) => {
     console.log(req.body);
-    EventCollection.findOneAndRemove({ 'eventId': req.body.eventId }, function (err, removedEvent) {
-        console.log(err, removedEvent);
-        if (err) {
-            res.json(400, { 'status': 'error', 'data': 'Failed to update event' });
-        }
-        else {
-            EventDetailsCollection.findOneAndRemove({ 'eventId': req.body.eventId });
-
-            res.json(200, removedEvent);
-        }
+    EventDetailsCollection.remove({ 'eventId': req.body.eventId },function (err, removedEvent) {
+        EventCollection.findOneAndRemove({ 'eventId': req.body.eventId }, function (err, removedEvent) {
+            console.log(err, removedEvent);
+            if (err) {
+                res.json(400, { 'status': 'error', 'data': 'Failed to update event' });
+            }
+            else {
+                res.json(200, removedEvent);
+            }
+        });
     });
+   
 
 }
 

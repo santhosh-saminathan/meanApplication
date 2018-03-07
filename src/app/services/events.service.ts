@@ -7,7 +7,7 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   getAllEvents(){
-      return this.http.post("http://localhost:3000/all/events",{'userId':localStorage.getItem('userId')});
+      return this.http.get("http://localhost:3000/all/events");
   }
 
   createEvent(data){

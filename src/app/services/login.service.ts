@@ -12,4 +12,8 @@ export class LoginService {
       return this.http.post("http://localhost:3000/login",data);
   }
 
+  createAdmin(data){
+    return this.http.post("http://localhost:3000/create/admin",data)
+  }
+
 }

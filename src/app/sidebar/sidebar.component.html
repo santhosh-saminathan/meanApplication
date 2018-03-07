@@ -21,7 +21,7 @@
             <span>Categories</span>
             <i class="font_awesome fas fa-tags"></i>
         </div>
-        <div [ngClass]="{'highlight': highlightAdmin}" (click)="admin()">
+        <div *ngIf="adminAccess" [ngClass]="{'highlight': highlightAdmin}" (click)="admin()">
             <span>Admin</span>
             <i class="font_awesome fas fa-user-secret"></i>
         </div>
@@ -38,6 +38,6 @@
         <events *ngIf="url === '/events'"></events>
         <createEvent *ngIf="url === '/createEvent' && creatorAccess"></createEvent>
         <category *ngIf="url === '/category'"></category>
-        <admin *ngIf="url === '/admin'"></admin>
+        <admin *ngIf="url === '/admin' && adminAccess"></admin>
     </div>
 </div>

@@ -45,7 +45,7 @@ app.get('/test',function(req,res){
 app.post('/login',require('./routes/userApi').loginUser);
 app.post('/signup',require('./routes/userApi').createUser);
 app.post('/event/create',require('./routes/eventApi').createEvent);
-app.post('/all/events',require('./routes/eventApi').allEvents);
+app.get('/all/events',require('./routes/eventApi').allEvents);
 app.post('/event/like',require('./routes/eventLikeRsvpApi').likeEvent);
 app.post('/event/rsvp',require('./routes/eventLikeRsvpApi').rsvpEvent);
 app.post('/event/update',require('./routes/eventApi').updateEvent);
@@ -58,6 +58,8 @@ app.post('/admin/approve/event',require('./routes/eventApi').approveEvent);
 app.get('/admin/all/users',require('./routes/userApi').allUsers);
 app.post('/admin/delete/user',require('./routes/userApi').deleteUser);
 
+
+app.post('/create/admin',require('./routes/userApi').createAdmin) // for testing purpose
 
 app.listen(app.get('port'), () => {
     console.log('Express server started');

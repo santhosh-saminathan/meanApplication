@@ -54,12 +54,15 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-6 col-sm-6" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                    <div class="col-xs-12 col-sm-6" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                         <span class="key_data">Location</span> :
                         <span title={{event.location}} class="alignments">{{event.location}}</span>
                     </div>
-                    <div class="col-xs-6 col-sm-6">
+                    <div class="col-xs-6 col-sm-3">
                         <button class="btn btn-primary btn-sm" style="float:right" (click)="approveEvent(event.eventId)">Approve Event</button>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                            <button class="btn btn-primary btn-sm" style="float:right" (click)="deleteEvent(event.eventId)">Delete</button>
                     </div>
                 </div>
 
@@ -102,7 +105,33 @@
         </div>
     </div>
     <div id="allEvents" class="tab-pane fade">
-        <h3>Menu 2</h3>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
+            <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Event ID</th>
+                                <th>Event Name</th>
+                                <th>User ID</th>
+                                <th>Event Date</th>
+                                <th>Event Location</th>
+                                <th>created Date</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let event of allEvents; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{event.eventId}}</td>
+                                <td>{{event.eventName}}</td>
+                                <td>{{event.userId}}</td>
+                                <td>{{event.eventDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td>{{event.location}}</td>
+                                <td>{{event.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td (click)="deleteEvent(event.eventId)">Delete</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
 </div>

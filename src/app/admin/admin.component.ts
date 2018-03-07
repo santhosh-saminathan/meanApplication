@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from './../services/admin.service';
+import { EventService } from './../services/events.service';
 
 @Component({
   selector: 'admin',
@@ -10,8 +11,9 @@ import { AdminService } from './../services/admin.service';
 export class AdminComponent {
     newEvents:any = [];
     allUsers:any = [];
+    allEvents:any = [];
    
-    constructor(private router: Router,private adminService:AdminService) { }
+    constructor(private router: Router,private adminService:AdminService,private eventService:EventService) { }
 
     ngOnInit() {
         console.log("calls automatically");
@@ -29,6 +31,13 @@ export class AdminComponent {
         },err=>{
             console.log(err);
         })
+
+        this.eventService.getAllEvents().subscribe(data=>{
+            this.allEvents = data;
+            console.log(this.allEvents);
+        },err=>{
+            console.log(err);
+        })
     }
 
     approveEvent(eventId){
@@ -42,6 +51,14 @@ export class AdminComponent {
     deleteUser(userId){
         this.adminService.deleteUser({'userId':userId}).subscribe(data=>{
             console.log(data);
+        },err=>{
+            console.log(err);
+        })
+    }
+
+    deleteEvent(eventId){
+        this.eventService.removeEvent({'eventId':eventId}).subscribe(data=>{
+            this.allEvents = data;
         },err=>{
             console.log(err);
         })

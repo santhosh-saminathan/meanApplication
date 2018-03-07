@@ -55,6 +55,40 @@ const createUser = (req, res) => {
     });
 }
 
+// function to create admin for test purpose
+const createAdmin = (req, res) => {
+
+    UserCollection.findOne({ 'userEmail': req.body.userEmail }, function (err, user) {
+        if (err || user == null) {
+
+            let userObj = {
+                'userId': "A001",
+                'userName': "admin",
+                'userEmail': req.body.userEmail,
+                'password': cryptr.encrypt(req.body.password),
+                'createdDate': new Date(Date.now()),
+                'updated': new Date(Date.now()),
+                'phone': "1111111111",
+                'zipCode': "12345",
+                'userType': "admin"
+            }
+            let UserNewCollection = new UserCollection(userObj);
+            UserNewCollection.save((error, userCreated) => {
+                if (error) {
+                    console.log("Crating erroe", error);
+                    res.json(400, { 'status': 'error', 'data': 'Failed to create user' });
+                }
+                else {
+                    res.json(201, userCreated);
+                }
+            })
+
+        } else {
+            res.status(400).json({ 'status': 'error', 'data': "Admin Already Exists" });
+        }
+    });
+}
+
 const loginUser = (req, res) => {
 
     UserCollection.findOne({ 'userEmail': req.body.userEmail, 'password': cryptr.encrypt(req.body.password) }, function (err, user) {
@@ -87,19 +121,25 @@ const allUsers = (req, res) => {
     });
 }
 
-const deleteUser = (req,res) =>{
-    UserCollection.findOneAndRemove({ 'userId': req.body.userId }, function (err, removedUser) {
-        console.log(err, removedUser);
-        if (err) {
-            res.json(400, { 'status': 'error', 'data': 'Failed to delete user' });
-        }
-        else {
-            EventDetailsCollection.findOneAndRemove({ 'userId': req.body.userId });
-            EventCollection.findOneAndRemove({ 'userId': req.body.userId })
-
-            res.json(200, removedUser);
-        }
+const deleteUser = (req, res) => {
+    console.log(req.body.userId);
+    EventDetailsCollection.remove({ 'userId': req.body.userId }, function (err, success) {
+        EventCollection.remove({ 'userId': req.body.userId }, function (err, success) {
+            UserCollection.findOneAndRemove({ 'userId': req.body.userId }, function (err, removedUser) {
+                console.log(err, removedUser);
+                if (err) {
+                    res.json(400, { 'status': 'error', 'data': 'Failed to delete user' });
+                }
+                else {
+                    console.log("final");
+                    res.json(200, removedUser);
+                }
+            });
+        });
     });
+
+
+
 }
 
 module.exports = {
@@ -107,5 +147,6 @@ module.exports = {
     loginUser: loginUser,
     userType: userType,
     allUsers: allUsers,
-    deleteUser:deleteUser
+    deleteUser: deleteUser,
+    createAdmin: createAdmin
 }
