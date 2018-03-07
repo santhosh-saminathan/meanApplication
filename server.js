@@ -52,6 +52,11 @@ app.post('/event/update',require('./routes/eventApi').updateEvent);
 app.post('/event/unlike',require('./routes/eventLikeRsvpApi').unlikeEvent);
 app.post('/event/uncheck/rsvp',require('./routes/eventLikeRsvpApi').uncheckRsvp);
 app.post('/event/remove',require('./routes/eventApi').removeEvent);
+app.post('/user/type',require('./routes/userApi').userType);
+app.get('/admin/new/events',require('./routes/eventApi').newEvents);
+app.post('/admin/approve/event',require('./routes/eventApi').approveEvent);
+app.get('/admin/all/users',require('./routes/userApi').allUsers);
+app.post('/admin/delete/user',require('./routes/userApi').deleteUser);
 
 
 app.listen(app.get('port'), () => {

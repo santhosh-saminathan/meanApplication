@@ -5,6 +5,7 @@ const user = new Schema({
     'userId': String,
     'userName':String,
     'userEmail':String,
+    'userType':String,
     'password':String,
     'createdDate':Date,
     'updated': Date,

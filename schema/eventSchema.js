@@ -12,7 +12,7 @@ const event = new Schema({
     'description': String,
     'image': String,
     'location': String,
-    'approved': String
+    'approved': Boolean
 }, { collection: 'Event' });
 
 module.exports = mongoose.model('Event', event);

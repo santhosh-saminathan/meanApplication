@@ -20,7 +20,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { EventDetailsComponent } from './eventDetails/eventDetails.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { UserService } from './services/user.service';
+import { AdminComponent } from './admin/admin.component';
+import { AdminService } from './services/admin.service';
 
 const appRoutes = [
   { path: '', component: LoginComponent },
@@ -29,7 +31,8 @@ const appRoutes = [
   { path: 'events', component: SidebarComponent },
   { path: 'createEvent', component: SidebarComponent },
   { path: 'category', component: SidebarComponent },
-  { path: 'event/details', component: EventDetailsComponent}
+  { path: 'admin', component: SidebarComponent },
+  { path: 'event/details', component: EventDetailsComponent }
 ]
 
 @NgModule({
@@ -41,7 +44,8 @@ const appRoutes = [
     SidebarComponent,
     CreateEventComponent,
     CategoryComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,7 @@ const appRoutes = [
     RouterModule.forRoot(
       appRoutes)
   ],
-  providers: [LoginService, SignupService, EventService],
+  providers: [LoginService, SignupService, EventService, UserService, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

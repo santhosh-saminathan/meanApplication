@@ -18,6 +18,7 @@ export class SignupComponent {
     confirmPassword: any;
     phoneNumber: any;
     zipCode: any;
+    userType:any;
     imageId: string;
     errorData:String;
 
@@ -40,7 +41,7 @@ export class SignupComponent {
 
     signUp() {
 
-        if(this.userName && this.email && this.password && this.confirmPassword && this.phoneNumber && this.zipCode){
+        if(this.userName && this.email && this.userType && this.password && this.confirmPassword && this.phoneNumber && this.zipCode){
           
             if(this.password===this.confirmPassword){
                 let userObj = {
@@ -48,7 +49,8 @@ export class SignupComponent {
                     'email':this.email,
                     'password':this.password,
                     'phoneNumber':this.phoneNumber,
-                    'zipCode':this.zipCode
+                    'zipCode':this.zipCode,
+                    'userType':this.userType
                 }
                 this.signupService.signupUser(userObj).subscribe(data => {
                     this.router.navigate(['/login'])

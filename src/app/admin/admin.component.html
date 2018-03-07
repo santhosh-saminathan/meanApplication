@@ -1,0 +1,108 @@
+<p>admin</p>
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a data-toggle="tab" href="#newEvents">New Events</a>
+    </li>
+    <li>
+        <a data-toggle="tab" href="#users">Users</a>
+    </li>
+    <li>
+        <a data-toggle="tab" href="#allEvents">Approved Events</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div id="newEvents" class="tab-pane fade in active">
+        <div *ngFor='let event of newEvents; let i = index' class="col-xs-12 event_card">
+            <div class="inner_card">
+                <div class="title_style">
+                    <span class="key_data">Title </span>:
+                    <span class="upper_case">{{event.eventName}}</span>
+                </div>
+                <div class="img_card">
+                    <div class="image_background">
+                        <img [src]="event.image" height="200px">
+                    </div>
+
+                </div>
+                <div class="row event_desc">
+                    <div class="col-xs-12 col-sm-12">
+                        <span class="key_data">Description </span>:
+                        <span class="alignments" style="overflow:scroll">{{event.description}}</span>
+                    </div>
+                </div>
+                <div class="row event_desc">
+                    <div class="col-xs-12 col-sm-6">
+                        <span class="key_data">Category </span>:
+                        <span *ngFor="let category of event.categoryId" class="alignments" title={{category.itemName}}>{{category.id}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <span class="key_data">Event Date </span>:
+                        <span class="alignments">{{event.eventDate | date:'dd-MM-yyyy HH:mm:ss'}}</span>
+                    </div>
+                </div>
+                <div class="row event_desc">
+                    <div class="col-xs-12 col-sm-6">
+                        <span class="key_data">Created By </span>:
+                        <span class="alignments">{{event.userId}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <span class="key_data">Created Date </span>:
+                        <span class="alignments">{{event.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                        <span class="key_data">Location</span> :
+                        <span title={{event.location}} class="alignments">{{event.location}}</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-6">
+                        <button class="btn btn-primary btn-sm" style="float:right" (click)="approveEvent(event.eventId)">Approve Event</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="users" class="tab-pane fade">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>User Type</th>
+                        <th>Zip</th>
+                        <th>created Date</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of allUsers; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{user.userId}}</td>
+                        <td>{{user.userName}}</td>
+                        <td>{{user.userEmail}}</td>
+                        <td>{{user.userType}}</td>
+                        <td>{{user.zipCode}}</td>
+                        <td>{{user.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        <td (click)="deleteUser(user.userId)">Delete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div >
+           
+        </div>
+    </div>
+    <div id="allEvents" class="tab-pane fade">
+        <h3>Menu 2</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+</div>

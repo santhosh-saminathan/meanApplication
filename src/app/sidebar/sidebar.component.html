@@ -8,18 +8,22 @@
     </div>
 </section>
 <div>
-    <div class="sidebar_content hidden-xs col-sm-4 col-md-3 col-lg-2">
+    <div class="sidebar_content hidden-xs col-sm-3 col-md-3 col-lg-2">
         <div [ngClass]="{'highlight': highlightHome}" (click)="home()">
             <span>Home</span>
             <i class="font_awesome fas fa-home"></i>
         </div>
-        <div [ngClass]="{'highlight': highlightCreateEvent}" (click)="createEvent()">
+        <div *ngIf="creatorAccess" [ngClass]="{'highlight': highlightCreateEvent}" (click)="createEvent()">
             <span>Create Event</span>
             <i class="font_awesome fas fa-calendar-alt"></i>
         </div>
         <div [ngClass]="{'highlight': highlightCategory}" (click)="categories()">
             <span>Categories</span>
             <i class="font_awesome fas fa-tags"></i>
+        </div>
+        <div [ngClass]="{'highlight': highlightAdmin}" (click)="admin()">
+            <span>Admin</span>
+            <i class="font_awesome fas fa-user-secret"></i>
         </div>
         <div>
             <span>Notifications</span>
@@ -30,9 +34,10 @@
             <i class="font_awesome fas fa-user"></i>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 scrolling_content">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 scrolling_content">
         <events *ngIf="url === '/events'"></events>
-        <createEvent *ngIf="url === '/createEvent'"></createEvent>
+        <createEvent *ngIf="url === '/createEvent' && creatorAccess"></createEvent>
         <category *ngIf="url === '/category'"></category>
+        <admin *ngIf="url === '/admin'"></admin>
     </div>
 </div>
