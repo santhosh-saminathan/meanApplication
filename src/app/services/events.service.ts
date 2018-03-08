@@ -34,5 +34,9 @@ export class EventService {
     console.log(data);
     return this.http.post("http://localhost:3000/event/remove",data);
   }
+  getEventDetail(data){
+    return this.http.post("http://localhost:3000/event/details",data);
+
+  }
 
 }

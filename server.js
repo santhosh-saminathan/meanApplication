@@ -57,7 +57,7 @@ app.get('/admin/new/events',require('./routes/eventApi').newEvents);
 app.post('/admin/approve/event',require('./routes/eventApi').approveEvent);
 app.get('/admin/all/users',require('./routes/userApi').allUsers);
 app.post('/admin/delete/user',require('./routes/userApi').deleteUser);
-
+app.post('/event/details',require('./routes/eventApi').getEventDetails)
 
 app.post('/create/admin',require('./routes/userApi').createAdmin) // for testing purpose
 

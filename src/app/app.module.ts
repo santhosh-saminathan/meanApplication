@@ -32,7 +32,7 @@ const appRoutes = [
   { path: 'createEvent', component: SidebarComponent },
   { path: 'category', component: SidebarComponent },
   { path: 'admin', component: SidebarComponent },
-  { path: 'event/details', component: EventDetailsComponent }
+  { path: 'event/details/:eventId', component: EventDetailsComponent }
 ]
 
 @NgModule({

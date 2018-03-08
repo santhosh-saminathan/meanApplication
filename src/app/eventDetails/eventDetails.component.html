@@ -2,22 +2,110 @@
     <div>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <img>
+                <img *ngIf="event" [src]="event.image" style=" width: 100%;
+                max-width: 400px;
+                height: auto;">
             </div>
             <div class="col-xs-12 col-sm-6">
-                <p>Event details</p>
+                <div>Event Details</div>
+                <table>
+                    <tbody *ngIf="event">
+                        <tr>
+                            <td>Event Name</td>
+                            <td>:</td>
+                            <td>{{event.eventName}}</td>
+                        </tr>
+                        <tr>
+                            <td>Created By</td>
+                            <td>:</td>
+                            <td>{{event.creatorDetails.userName}}</td>
+                        </tr>
+                        <tr>
+                            <td>Creator Email</td>
+                            <td>:</td>
+                            <td>{{event.creatorDetails.userEmail}}</td>
+                        </tr>
+                        <tr>
+                            <td>Created at</td>
+                            <td>:</td>
+                            <td>{{event.createdDate}}</td>
+                        </tr>
+                        <tr>
+                            <td>Event Date</td>
+                            <td>:</td>
+                            <td>{{event.eventDate}}</td>
+                        </tr>
+                        <tr>
+                            <td>Event Location</td>
+                            <td>:</td>
+                            <td>{{event.location}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>:</td>
+                            <td>{{event.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td>:</td>
+                            <td *ngIf="event && event.categoryId">
+                                <span *ngFor="let category of event.categoryId" class="alignments" title={{category.itemName}}>{{category.id}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Last Updated</td>
+                            <td>:</td>
+                            <td>{{event.updated}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <p>Like details</p>
+                <div>Liked User Details</div>
+
+                <div *ngIf="event && event.likes" class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>S.No</th>
+                            <th>User Name</th>
+                            <th>User Email</th>
+                        </tr>
+                        <tbody>
+                            <tr *ngFor="let like of event.likes; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{like.userName}}</td>
+                                <td>{{like.userEmail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-6">
-                <p>Rsvp details</p>
+                <div>Rsvp User details</div>
+                <div *ngIf="event && event.rsvp" class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>S.No</th>
+                            <th>User Name</th>
+                            <th>User Email</th>
+                        </tr>
+                        <tbody>
+                            <tr *ngFor="let like of event.rsvp; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{like.userName}}</td>
+                                <td>{{like.userEmail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="row">
-            <p>location details</p>
+           <div>Location Details</div>
+           <div id="map"></div>
         </div>
     </div>
 </section>

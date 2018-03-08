@@ -28,7 +28,7 @@ export class EventComponent {
     dropdownSettings: any;
     autocomplete: any;
 
-    constructor(private eventService: EventService, private router: Router) { }
+    constructor(private eventService: EventService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
 
@@ -102,7 +102,7 @@ export class EventComponent {
                 if (event.likes) {
                     event.totalLikes = event.likes.length;
                     event.likes.forEach(like => {
-                        if (like === localStorage.getItem('userId')) {
+                        if (like.userId === localStorage.getItem('userId')) {
                             event.alreadyLiked = true;
                         }
                     });
@@ -110,7 +110,7 @@ export class EventComponent {
                 if (event.rsvp) {
                     event.totalRsvp = event.rsvp.length;
                     event.rsvp.forEach(rsvp => {
-                        if (rsvp === localStorage.getItem('userId')) {
+                        if (rsvp.userId === localStorage.getItem('userId')) {
                             event.alreadyRsvp = true;
                         }
                     });
@@ -230,6 +230,12 @@ export class EventComponent {
         },
             err => console.error(err),
             () => console.log('done loading'));
+    }
+
+    eventDetails(eventId){
+        this.router.navigate(['/event/details'], { queryParams: { eventId: eventId } })
+
+
     }
 
 
