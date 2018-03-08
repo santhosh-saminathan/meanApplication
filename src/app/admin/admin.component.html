@@ -1,4 +1,3 @@
-<p>admin</p>
 
 <ul class="nav nav-tabs">
     <li class="active">
@@ -12,8 +11,8 @@
     </li>
 </ul>
 
-<div class="tab-content">
-    <div id="newEvents" class="tab-pane fade in active">
+<div class="tab-content tab_style">
+    <div *ngIf="newEvents"  id="newEvents" class="tab-pane fade in active">
         <div *ngFor='let event of newEvents; let i = index' class="col-xs-12 event_card">
             <div class="inner_card">
                 <div class="title_style">
@@ -72,7 +71,7 @@
     </div>
     <div id="users" class="tab-pane fade">
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table *ngIf="allUsers" class="table table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -86,7 +85,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of allUsers; let i = index">
+                    <tr  *ngFor="let user of allUsers; let i = index">
                         <td>{{i+1}}</td>
                         <td>{{user.userId}}</td>
                         <td>{{user.userName}}</td>
@@ -94,7 +93,7 @@
                         <td>{{user.userType}}</td>
                         <td>{{user.zipCode}}</td>
                         <td>{{user.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
-                        <td (click)="deleteUser(user.userId)">Delete</td>
+                        <td (click)="deleteUser(user.userId)" style="cursor:pointer">Delete</td>
                     </tr>
                 </tbody>
             </table>
@@ -106,7 +105,7 @@
     </div>
     <div id="allEvents" class="tab-pane fade">
             <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table *ngIf="allEvents" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -128,7 +127,7 @@
                                 <td>{{event.eventDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
                                 <td>{{event.location}}</td>
                                 <td>{{event.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
-                                <td (click)="deleteEvent(event.eventId)">Delete</td>
+                                <td (click)="deleteEvent(event.eventId)" style="cursor:pointer">Delete</td>
                             </tr>
                         </tbody>
                     </table>
