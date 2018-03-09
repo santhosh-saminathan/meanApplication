@@ -18,7 +18,9 @@
                 </div>
                 <div class="img_card">
                     <div class="image_background">
-                        <img [src]="event.image" height="200px">
+                        <img [src]="event.image" height="200px" style="width: 100%;
+                        max-width: 400px;
+                        height: auto;">
                     </div>
 
                 </div>
@@ -29,38 +31,38 @@
                     </div>
                 </div>
                 <div class="row event_desc">
-                    <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-12  col-md-6">
                         <span class="key_data">Category </span>:
                         <span *ngFor="let category of event.categoryId" class="alignments" title={{category.itemName}}>{{category.id}}</span>
                     </div>
-                    <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-12 col-md-6">
                         <span class="key_data">Event Date </span>:
                         <span class="alignments">{{event.eventDate | date:'dd-MM-yyyy HH:mm:ss'}}</span>
                     </div>
                 </div>
 
                 <div class="row event_likes">
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-6 col-sm-3">
 
-                        <span *ngIf=!event.alreadyLiked class="pointer" (click)="likeEvent(event.eventId,event.userId)">
+                        <span *ngIf=!event.alreadyLiked class="pointer nowrap" (click)="likeEvent(event.eventId,event.userId)">
                             <i class="far fa-thumbs-up"></i>
-                            <span> Like
+                            <span > Like
                                 <span *ngIf="event.totalLikes">({{event.totalLikes}})</span>
                             </span>
                         </span>
-                        <span *ngIf=event.alreadyLiked class="pointer" (click)="unlikeEvent(event.eventId,event.userId)">
+                        <span *ngIf=event.alreadyLiked class="pointer nowrap" (click)="unlikeEvent(event.eventId,event.userId)">
                             <i class="fas fa-thumbs-up like_color"></i>
                             <span class="like_color"> Like
                                 <span *ngIf="event.totalLikes">({{event.totalLikes}})</span>
                             </span>
                         </span>
                     </div>
-                    <div class="col-xs-12 col-sm-3 center_align">
+                    <div class="col-xs-6 col-sm-3 center_align">
                         <div >
-                            <span *ngIf=!event.alreadyRsvp class="pointer" (click)="rsvpEvent(event.eventId,event.userId)">Rsvp
+                            <span *ngIf=!event.alreadyRsvp class="pointer nowrap" (click)="rsvpEvent(event.eventId,event.userId)">Rsvp
                                 <span *ngIf="event.totalRsvp">({{event.totalRsvp}})</span>
                             </span>
-                            <span class="like_color pointer" *ngIf=event.alreadyRsvp (click)="uncheckRsvp(event.eventId,event.userId)" >Rsvp
+                            <span class="like_color pointer nowrap" *ngIf=event.alreadyRsvp (click)="uncheckRsvp(event.eventId,event.userId)" >Rsvp
                                 <i class="fas fa-check like_color"></i>
                                 <span *ngIf="event.totalRsvp">({{event.totalRsvp}})</span>
                             </span>

@@ -1,5 +1,9 @@
 <section class="header row">
-    <div class="col-xs-2 col-sm-4"></div>
+    <div class="col-xs-2 col-sm-4">
+        <span class="hidden-sm hidden-md hidden-lg">
+            <span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776;</span>
+        </span>
+    </div>
     <div class="pageTitle col-xs-6 col-sm-4">
         <span>{{pageTitle}}</span>
     </div>
@@ -8,6 +12,34 @@
     </div>
 </section>
 <div>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+        <div [ngClass]="{'highlight': highlightHome}" (click)="home()">
+            <span>Home</span>
+            <i class="font_awesome fas fa-home"></i>
+        </div>
+        <div *ngIf="creatorAccess" [ngClass]="{'highlight': highlightCreateEvent}" (click)="createEvent()">
+            <span>Create Event</span>
+            <i class="font_awesome fas fa-calendar-alt"></i>
+        </div>
+        <div [ngClass]="{'highlight': highlightCategory}" (click)="categories()">
+            <span>Categories</span>
+            <i class="font_awesome fas fa-tags"></i>
+        </div>
+        <div *ngIf="adminAccess" [ngClass]="{'highlight': highlightAdmin}" (click)="admin()">
+            <span>Admin</span>
+            <i class="font_awesome fas fa-user-secret"></i>
+        </div>
+        <div>
+            <span>Notifications</span>
+            <i class="font_awesome fas fa-bell"></i>
+        </div>
+        <div>
+            <span>Profile</span>
+            <i class="font_awesome fas fa-user"></i>
+        </div>
+    </div>
+
     <div class="sidebar_content hidden-xs col-sm-3 col-md-3 col-lg-2">
         <div [ngClass]="{'highlight': highlightHome}" (click)="home()">
             <span>Home</span>

@@ -88,4 +88,13 @@ export class SidebarComponent {
         localStorage.removeItem('userId');
         this.router.navigate(['/login']);
     }
+
+    openNav(){
+        document.getElementById("mySidenav").style.width = "220px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+     closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.body.style.backgroundColor = "white";
+    }
 }

@@ -5,6 +5,7 @@
     /* position: fixed; */
     height: calc(100vh - 55px);
     padding: 0px;
+    /* max-width: 220px; */
 }
 
 .sidebar_content div{
@@ -45,4 +46,46 @@
     height: 90vh;
     overflow-y: scroll;
     padding: 15px 10px;
+}
+
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #292929;
+    color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    max-width: 220px;
+}
+
+.sidenav div{
+    font-size: 16px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.sidenav a {
+   
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }
