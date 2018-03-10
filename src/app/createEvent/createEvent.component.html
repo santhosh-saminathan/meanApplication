@@ -1,19 +1,21 @@
 <section id="createEvent">
     <div class="row">
         <br>
+        <span class="message">{{message}}</span>
+        <br>
         <div class="col-xs-12 col-sm-1 col-md-2"></div>
         <div class="col-xs-12 col-sm-10 col-md-8">
             <span *ngIf="fieldsMissing" class="warning_text">All fileds are required<br><br></span>
             <form class="form-horizontal" action="/action_page.php">
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Title:</label>
-                    <div class="col-sm-10">
+                    <label class=" col-sm-3">Title:</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" [(ngModel)]="eventTitle" name="title" placeholder="Event title">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Category:</label>
-                    <div class="col-sm-10">
+                    <label class=" col-sm-3">Category:</label>
+                    <div class="col-sm-9">
                             <angular2-multiselect [data]="dropdownList" name="category" [(ngModel)]="selectedItems" 
                             [settings]="dropdownSettings" 
                             (onSelect)="onItemSelect($event)" 
@@ -23,36 +25,36 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Location:</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-3">Location:</label>
+                    <div class="col-sm-9">
                             <div id="map"></div>
                             <input id="searchTextField" type="text" placeholder="Enter location" [(ngModel)]="eventLocation" name="location" >
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Date-Time:</label>
-                    <div class="col-sm-10">
+                    <label class=" col-sm-3">Date&nbsp;Time:</label>
+                    <div class="col-sm-9">
                         <input class="datePicker" type="datetime-local" name="bdaytime" [(ngModel)]="eventDate">
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Description:</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-3">Description:</label>
+                    <div class="col-sm-9">
                         <textarea class="form-control" rows="5" placeholder="Enter description" [(ngModel)]="eventDesc" name="desc"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
-                        <label class="control-label col-sm-2">Select&nbsp;Image:</label>
-                        <div class="col-sm-10">
+                        <label class=" col-sm-3">Select&nbsp;Image:</label>
+                        <div class="col-sm-9">
                             <input type="file" accept="image/*" id="selectFile" name="selectFile" class="btn btn-sm image_input_style" (change)="fileChangeListener($event)" />
                         </div>
                     </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default" (click)="createEvent()">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-sm right_align" (click)="createEvent()">Submit</button>
                     </div>
                 </div>
             </form>

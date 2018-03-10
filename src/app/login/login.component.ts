@@ -49,7 +49,9 @@ export class LoginComponent {
     createAdmin(){
         this.loginService.createAdmin({'userEmail':'admin','password':'admin'}).subscribe(data=>{
             console.log(data);
+            window.alert("Admin created successfully");
         },err=>{
+            window.alert(err.error.data);
             console.log(err);
         })
     }

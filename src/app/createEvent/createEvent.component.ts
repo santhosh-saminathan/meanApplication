@@ -21,6 +21,7 @@ export class CreateEventComponent {
     dropdownList = [];
     selectedItems = [];
     dropdownSettings = {};
+    message:any;
 
     constructor(private router: Router, private eventService: EventService, private elem: ElementRef) { }
 
@@ -79,7 +80,7 @@ export class CreateEventComponent {
         const that = this;
         myReader.onloadend = (loadEvent: any) => {
             this.image = loadEvent.target.result;
-            console.log('file load', loadEvent.target.result);
+            //console.log('file load', loadEvent.target.result);
         };
         myReader.readAsDataURL(file);
     }
@@ -98,10 +99,12 @@ export class CreateEventComponent {
                 'image': this.image
             }
             this.eventService.createEvent(event).subscribe(data => {
-                this.router.navigate(['/events']);
-                console.log(data);
+                this.message = "Event Created Successfully. Events will display in Events page after Admin approves Event";
+                //this.router.navigate(['/events']);
+                //console.log(data);
 
             },err => {
+                //this.message = "Failed to create Event";
                     console.log(err);
                 });
         }else{

@@ -9,13 +9,10 @@ declare let google: any;
     styleUrls: ['./eventDetails.component.css']
 })
 export class EventDetailsComponent {
-    //location:any;
+    constructor(private router: Router, private activatedRoute: ActivatedRoute, private eventService: EventService) {
+
+    }
     autocomplete: any;
-    distance: String;
-    timeTaken: String;
-
-
-    constructor(private router: Router, private activatedRoute: ActivatedRoute, private eventService: EventService) { }
     event: any;
     updateEventTitle: any;
     updateEventDesc: any;
@@ -25,51 +22,56 @@ export class EventDetailsComponent {
     updateEventCategory: any;
     dropdownList: any;
     dropdownSettings: any;
-
-
+    enableEdit: boolean = false;
 
     calculateAndDisplayRoute(directionsService, directionsDisplay) {
-       directionsService.route({
-            origin: localStorage.getItem('lat') + ',' + localStorage.getItem('lng'),
-            //origin: "11.004556,76.961632",
-            destination: "chennai",
-            travelMode: 'DRIVING'
-        }, function (response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            } else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
+        if (localStorage.getItem('lat') && localStorage.getItem('lng')) {
+            document.getElementById('data').innerHTML = "Distance is based on user current location";
+            directionsService.route({
+                origin: localStorage.getItem('lat') + ',' + localStorage.getItem('lng'),
+                destination: this.event.location,
+                travelMode: 'DRIVING'
+            }, function (response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        } else {
+            document.getElementById('data').innerHTML = "Distance is based on user zip code";
+            directionsService.route({
+                origin: this.event.creatorDetails.zipCode,
+                destination: this.event.location,
+                travelMode: 'DRIVING'
+            }, function (response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+
     }
 
     getLocation() {
-        var x = document.getElementById("demo");
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.getPosition);
         } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
+            console.error("Geolocation not supported by browser.Check Html5 W3C documentation")
         }
     }
 
     getPosition(position) {
-
-        var x = document.getElementById("demo");
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
-
         localStorage.setItem('lat', position.coords.latitude);
         localStorage.setItem('lng', position.coords.longitude);
-
-        var currentUserLatitude = position.coords.latitude;
-        var currentUserLongitude = position.coords.longitude;
-
     }
 
     ngOnInit() {
-
+        localStorage.removeItem('lat');
+        localStorage.removeItem('lng');
         this.getLocation();
-
         this.dropdownList = [
             { "id": 1, "itemName": "category 1" },
             { "id": 2, "itemName": "category 2" },
@@ -90,11 +92,13 @@ export class EventDetailsComponent {
             classes: "myclass custom-class"
         };
 
-
         this.activatedRoute.params.subscribe((params: Params) => {
             let eventId = params['eventId'];
             this.eventService.getEventDetail({ 'eventId': eventId }).subscribe(data => {
                 this.event = data;
+                if (this.event.userId === localStorage.getItem('userId')) {
+                    this.event.editable = true;
+                }
                 var directionsService = new google.maps.DirectionsService;
                 var directionsDisplay = new google.maps.DirectionsRenderer;
 
@@ -102,92 +106,55 @@ export class EventDetailsComponent {
                     center: { lat: parseFloat(this.event.latitude), lng: parseFloat(this.event.longitude) },
                     zoom: 13
                 });
-
                 directionsDisplay.setMap(map);
-
-
                 var input = document.getElementById('searchTextField');
-
                 this.autocomplete = new google.maps.places.Autocomplete(input);
-
                 this.autocomplete.bindTo('bounds', map);
-
                 var service = new google.maps.DistanceMatrixService;
                 service.getDistanceMatrix({
-                    // origins: ["Coimbatore"],
-                    origins: [localStorage.getItem('lat')+','+localStorage.getItem('lng')],
-                    destinations: ["Chennai"],
+                    origins: [localStorage.getItem('lat') ? localStorage.getItem('lat') + ',' + localStorage.getItem('lng') : this.event.creatorDetails.zipCode],
+                    destinations: [this.event.location],
                     travelMode: 'DRIVING',
                     unitSystem: google.maps.UnitSystem.METRIC,
                     avoidHighways: false,
                     avoidTolls: false
                 }, function (response, status) {
-                    console.log(response, status);
-                    this.distance = response.rows["0"].elements["0"].distance.text;
-                    this.timeTaken = response.rows["0"].elements["0"].duration.text;
-                    console.log(this.distance, this.timeTaken)
-                    document.getElementById('distance').innerHTML = this.distance;
-                    document.getElementById('time').innerHTML = this.timeTaken;
+                    document.getElementById('distance').innerHTML = response.rows["0"].elements["0"].distance.text;;
+                    document.getElementById('time').innerHTML = response.rows["0"].elements["0"].duration.text;
                 })
-
                 this.calculateAndDisplayRoute(directionsService, directionsDisplay);
-
-
             },
                 err => console.error(err),
                 () => console.log('done loading'));
-
         });
-
-
     }
 
     editEvent() {
-
-        console.log(event);
         this.updateEventTitle = this.event.eventName;
         this.updateEventDesc = this.event.description;
         this.updateEventDate = this.event.eventDate;
         this.updateEventLocation = this.event.location;
         this.eventId = this.event.eventId;
         this.updateEventCategory = this.event.categoryId;
-
+        this.enableEdit = true;
     }
 
     updateEvent() {
+        console.log(this.autocomplete,this.updateEventLocation);
         let data = {
             'eventName': this.updateEventTitle,
             'eventId': this.eventId,
             'categoryId': this.updateEventCategory,
-            'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction,
+            'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction?this.autocomplete.gm_accessors_.place.dd.formattedPrediction:this.updateEventLocation,
             'eventDate': this.updateEventDate,
             'description': this.updateEventDesc
         }
         this.eventService.updateEvent(data).subscribe(data => {
-            console.log(data);
-
+            this.enableEdit = false;
+            this.ngOnInit();
         }, err => {
             console.log(err);
-            //this.failureAlert = "Error While Updating Event";
-
-        })
-
-
+        });
     }
-
-    removeEvent() {
-
-        let data = {
-            'eventId': this.eventId,
-        }
-        this.eventService.removeEvent(data).subscribe(data => {
-            console.log(data);
-            // this.getAllEve();
-        }, err => {
-            console.log("Error removing event");
-        })
-    }
-
-
 
 }

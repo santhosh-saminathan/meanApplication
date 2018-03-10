@@ -58,14 +58,17 @@ const createEvent = (req, res) => {
 }
 
 const allApprovedEvents = (req, res) => {
+    console.log("**approved  events");
     let allEvents = [];
     EventCollection.find().lean().exec(function (error, events) {
         if (error) {
             res.json(400, { 'status': 'error', 'data': 'Failed to retrive events' });
         }
         else {
+            console.log("**db success");
             let count = 0;
             events.forEach(function (data) {
+                console.log("**looping");
                 EventDetailsCollection.findOne({ 'eventId': data.eventId }, function (err, eventDetails) {
                     count++;
                     if (eventDetails) {
@@ -77,6 +80,7 @@ const allApprovedEvents = (req, res) => {
                     }
 
                     if (events.length === count) {
+                        console.log("**response send");
                         res.status(200).json(allEvents);
                     }
                 });
@@ -86,6 +90,7 @@ const allApprovedEvents = (req, res) => {
 }
 
 const newEvents = (req, res) => {
+    console.log("called");
     let allEvents = [];
     EventCollection.find().lean().exec(function (error, events) {
         if (error) {
@@ -94,6 +99,7 @@ const newEvents = (req, res) => {
         else {
             let count = 0;
             events.forEach(function (data) {
+                console.log("loooping");
                 EventDetailsCollection.findOne({ 'eventId': data.eventId }, function (err, eventDetails) {
                     count++;
                     if (eventDetails) {
@@ -105,6 +111,7 @@ const newEvents = (req, res) => {
                     }
 
                     if (events.length === count) {
+                        console.log("sending respinse");
                         res.status(200).json(allEvents);
                     }
                 });
@@ -207,13 +214,14 @@ const getEventDetails = (req, res) => {
             console.log(event.eventId);
             console.log(event.userId);
             EventDetailsCollection.findOne({ 'eventId': event.eventId }, function (err, eventDetails) {
+                console.log(err,eventDetails);
                 if (eventDetails) {
                     event.likes = eventDetails.likes;
                     event.rsvp = eventDetails.rsvp;
                     getCreatorDetails(event)
                 } else {
                     console.log("whta");
-                    res.json(404);
+                    getCreatorDetails(event)
                 }
             })
         }

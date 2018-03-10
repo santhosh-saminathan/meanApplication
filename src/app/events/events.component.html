@@ -9,18 +9,14 @@
                 <div class="title_style">
                     <span class="key_data">Title </span>:
                     <span class="upper_case">{{event.eventName}}</span>
-                    <a class="remove_option"  target="_blank" routerLink="/event/details/{{event.eventId}}">Details</a>
-
-                    <!-- <span class="remove_option" (click)="removeEvent(event.eventId)">Delete</span> -->
-                    <span class="edit_option" *ngIf="event.editable" data-toggle="modal" data-target="#myModal" (click)="editEvent(event)">
-                        <i class="far fa-edit"></i>
-                        Edit</span>
+                    <a class="details_option"  target="_blank" routerLink="/event/details/{{event.eventId}}">Details</a>
+                    <span class="remove_option" *ngIf="event.editable" (click)="removeEvent(event.eventId)">
+                            <i class="fas fa-trash-alt"></i> Delete</span>
                 </div>
                 <div class="img_card">
                     <div class="image_background">
                         <img [src]="event.image" height="200px" style="width: 100%;
-                        max-width: 400px;
-                        height: auto;">
+                        max-width: 250px;">
                     </div>
 
                 </div>
@@ -78,72 +74,3 @@
         </div>
     </div>
 </section>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg" style="width:60%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title center_align">Update Event</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="center_align">
-                    <span style="color:green">{{successAlert}}<br></span>
-                    <span style="color:red">{{failureAlert}}<br></span>
-                </div>
-
-                <form class="form-horizontal" action="/action_page.php">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Title:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" [(ngModel)]="updateEventTitle" name="title" placeholder="Event title">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Category:</label>
-                        <div class="col-sm-10">
-
-                            <angular2-multiselect [data]="dropdownList" name="category" [(ngModel)]="updateEventCategory" [settings]="dropdownSettings"></angular2-multiselect>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Location:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" [(ngModel)]="updateEventLocation" placeholder="Event location" name="location">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Date-Time:</label>
-
-                        <div class="col-sm-5">
-                            <input class="datePicker" type="datetime-local" name="bdaytime" [(ngModel)]="updateEventDate">
-                        </div>
-                        <div class="col-sm-5" style="margin-top:5px">
-                            <span>({{updateEventDate | date:'dd-MM-yyyy HH:mm:ss'}})</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Description:</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" placeholder="Enter description" [(ngModel)]="updateEventDesc" name="desc"></textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer row">
-                <div class="col-xs-12">
-                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-primary" (click)="updateEvent()">Submit</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- <div id="map"></div>
-<input id="searchTextField" type="text" placeholder="Enter location">  -->

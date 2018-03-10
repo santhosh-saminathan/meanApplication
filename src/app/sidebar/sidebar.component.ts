@@ -21,6 +21,9 @@ export class SidebarComponent {
 
     ngOnInit() {
         console.log("calls automatically");
+        if(!localStorage.getItem('userId')){
+            this.router.navigate(['/login']);
+        }
         this.url = this.router.url;
         console.log(this.url);
         if (this.url === '/events') {
@@ -46,10 +49,11 @@ export class SidebarComponent {
             } else if (data === 'admin') {
                 console.log("admi access true");
                 this.adminAccess = true;
-                this.creatorAccess = true;
+                this.creatorAccess = false;
             }
         },
             err => {
+                this.router.navigate(['/login']);
                 console.log(err);
 
             });
@@ -91,10 +95,9 @@ export class SidebarComponent {
 
     openNav(){
         document.getElementById("mySidenav").style.width = "220px";
-        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        
     }
      closeNav() {
         document.getElementById("mySidenav").style.width = "0";
-        document.body.style.backgroundColor = "white";
     }
 }

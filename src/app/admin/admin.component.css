@@ -4,7 +4,7 @@
     display: block;
 }
 .event_card{
-    height: 400px;
+    height: 430px;
     width: 100%;
     margin-bottom: 30px;
 }
@@ -48,7 +48,9 @@
     cursor: pointer;
 }
 
-
+.last_row{
+    padding: 5px 0px;
+}
 
 .image_background{
     background: #F9F9F9;
@@ -58,3 +60,12 @@
 .tab_style{
     padding: 25px 5px;
 }
+.nowrap{
+    white-space: nowrap;
+}
+
+@media only screen and (max-width: 767px) {
+    .inner_card{
+        width: 100%;
+    }
+ }

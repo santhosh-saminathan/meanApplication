@@ -17,3 +17,44 @@
     float:right;
     cursor:pointer;
 }
+
+
+.shadow {
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.float_right{
+      float: right
+}
+
+.title{
+      font-size: 18px;
+      font-weight: bold;
+}
+
+.text-caps{
+    text-transform: capitalize;
+}
+
+.text-caps td{
+    padding: 5px;
+}
+
+.label_color{
+    color: darkgray;
+    white-space: nowrap;
+}
+.update_label{
+    color: darkgray;
+    margin-top: 5px;
+}
+.details_table{
+    margin-top:15px;
+    max-height: 250px;
+}
+.warning_text{
+    color:red;
+    text-align: center;
+}

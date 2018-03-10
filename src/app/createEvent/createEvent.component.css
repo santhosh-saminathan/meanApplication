@@ -9,6 +9,15 @@
   width: 100%;
 }
 
+label{
+  margin-top:5px;
+  color:grey
+}
+
+.right_align{
+  float: right;
+}
+
 .warning_text{
   text-align: center;
   color: red;
@@ -35,4 +44,11 @@
     border: 1px solid #4d90fe;
     border-color: #4d90fe;
    
+  }
+
+  .message{
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    color: green;
   }

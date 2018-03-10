@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { EventService } from './../services/events.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-declare let google: any;
-
 @Component({
     selector: 'events',
     templateUrl: './events.component.html',
@@ -14,55 +12,18 @@ export class EventComponent {
     password: string;
     allEvents: any;
     checked: any;
-    updateEventTitle: any;
-    updateEventDesc: any;
-    updateEventDate: any;
-    updateEventLocation: any;
-    updateEventCategory: any;
     eventId: any;
     successAlert: any;
     failureAlert: any;
     filterText: any;
     backupArray: any;
-    dropdownList: any;
-    dropdownSettings: any;
     autocomplete: any;
 
     constructor(private eventService: EventService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
 
-        // var map = new google.maps.Map(document.getElementById('map'), {
-        //     center: { lat: -33.8688, lng: 151.2195 },
-        //     zoom: 13
-        // });
-        // var input = document.getElementById('searchTextField');
-
-        // this.autocomplete = new google.maps.places.Autocomplete(input);
-
-        // this.autocomplete.bindTo('bounds', map);
-
         this.getAllEve();
-
-        this.dropdownList = [
-            { "id": 1, "itemName": "category 1" },
-            { "id": 2, "itemName": "category 2" },
-            { "id": 3, "itemName": "category 3" },
-            { "id": 4, "itemName": "category 4" },
-            { "id": 5, "itemName": "category 5" },
-            { "id": 6, "itemName": "category 6" },
-            { "id": 7, "itemName": "category 7" },
-            { "id": 8, "itemName": "category 8" }
-        ];
-        this.updateEventCategory = [];
-        this.dropdownSettings = {
-            singleSelection: false,
-            text: "Select Categories",
-            selectAllText: 'Select All',
-            unSelectAllText: 'UnSelect All',
-            enableSearchFilter: false,
-            classes: "myclass custom-class"
-        };
 
 
     }
@@ -156,43 +117,10 @@ export class EventComponent {
 
     }
 
-    editEvent(event) {
-
-        console.log(event);
-        this.updateEventTitle = event.eventName;
-        this.updateEventDesc = event.description;
-        this.updateEventDate = event.eventDate;
-        this.updateEventLocation = event.location;
-        this.eventId = event.eventId;
-        this.updateEventCategory = event.categoryId;
-
-        this.successAlert = "";
-        this.failureAlert = "";
-    }
-
-
-    updateEvent() {
-        let data = {
-            'eventName': this.updateEventTitle,
-            'eventId': this.eventId,
-            'categoryId': this.updateEventCategory,
-            'location': this.updateEventLocation,
-            'eventDate': this.updateEventDate,
-            'description': this.updateEventDesc
-        }
-        this.eventService.updateEvent(data).subscribe(data => {
-            this.successAlert = "Event Updated successfully";
-            this.getAllEve();
-
-        }, err => {
-            this.failureAlert = "Error While Updating Event";
-
-        })
-
-
-    }
-    removeEvent(eventId){
-        console.log("Event id",eventId);
+    removeEvent(eventId) {
+        let result = confirm("Are you sure? Want to delete Event?");
+        if (result) {
+            console.log("Event id", eventId);
         let data = {
             'eventId': eventId,
         }
@@ -202,6 +130,8 @@ export class EventComponent {
         }, err => {
             console.log("Error removing event");
         })
+        }
+        
     }
 
     unlikeEvent(eventId, userId) {
@@ -232,11 +162,7 @@ export class EventComponent {
             () => console.log('done loading'));
     }
 
-    eventDetails(eventId){
-        this.router.navigate(['/event/details'], { queryParams: { eventId: eventId } })
-
-
-    }
+ 
 
 
 

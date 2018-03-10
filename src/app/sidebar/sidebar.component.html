@@ -1,7 +1,7 @@
 <section class="header row">
     <div class="col-xs-2 col-sm-4">
         <span class="hidden-sm hidden-md hidden-lg">
-            <span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776;</span>
+            <span style="font-size:20px;cursor:pointer" (click)="openNav()">&#9776;</span>
         </span>
     </div>
     <div class="pageTitle col-xs-6 col-sm-4">
@@ -13,7 +13,9 @@
 </section>
 <div>
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">
+            <i class="fas fa-arrow-left"></i>
+        </a>
         <div [ngClass]="{'highlight': highlightHome}" (click)="home()">
             <span>Home</span>
             <i class="font_awesome fas fa-home"></i>
