@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from './../services/login.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { error } from 'selenium-webdriver';
 
 
 @Component({

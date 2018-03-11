@@ -33,7 +33,7 @@ export class AdminComponent {
             console.log(err);
         })
 
-        this.eventService.getAllEvents().subscribe(data => {
+        this.eventService.getAllEvents({'userId':localStorage.getItem('userId')}).subscribe(data => {
             if (data) {
                 this.allEvents = data;
             }

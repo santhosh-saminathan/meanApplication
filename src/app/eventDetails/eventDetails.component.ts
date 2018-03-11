@@ -67,8 +67,17 @@ export class EventDetailsComponent {
         localStorage.setItem('lat', position.coords.latitude);
         localStorage.setItem('lng', position.coords.longitude);
     }
+    
+    successCallback(data){
+        console.log(data);
+    }
+    errorCallback(data){
+        console.log(data);
+    }
 
     ngOnInit() {
+        navigator.geolocation.getCurrentPosition(this.successCallback,this.errorCallback,{timeout:10000});
+
         localStorage.removeItem('lat');
         localStorage.removeItem('lng');
         this.getLocation();

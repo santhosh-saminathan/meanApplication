@@ -4,6 +4,7 @@
             <input class="form-control serach_box" type="text" placeholder="Search Event Name.." [(ngModel)]="filterText" name="filter" (ngModelChange)="filterArray(filterText)">
         </div>
         <br>
+        <div *ngIf="allEvents && allEvents.length == 0" style="color:red;text-align:center">Sorry. No Events Found</div>
         <div *ngFor='let event of allEvents; let i = index' class="col-xs-12 event_card">
             <div class="inner_card">
                 <div class="title_style">

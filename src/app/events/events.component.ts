@@ -42,7 +42,7 @@ export class EventComponent {
     }
 
     getAllEve() {
-        this.eventService.getAllEvents().subscribe(data => {
+        this.eventService.getAllEvents({'userId':localStorage.getItem('userId')}).subscribe(data => {
             this.allEvents = data;
             this.allEvents.sort((a: any, b: any) => {
                 if (a.createdDate > b.createdDate) {

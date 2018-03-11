@@ -1,42 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { Constants } from './../constants/constants';
 
 @Injectable()
 export class EventService {
   constructor(private http: HttpClient) { }
 
-  getAllEvents(){
-      return this.http.get("http://localhost:3000/all/events");
+  getAllEvents(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "all/events", data);
   }
-
-  createEvent(data){
-    return this.http.post("http://localhost:3000/event/create",data);
+  createEvent(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/create", data);
   }
-
-  likeEvent(data){
-    return this.http.post("http://localhost:3000/event/like",data);
+  likeEvent(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/like", data);
   }
-  rsvpEvent(data){
-    return this.http.post("http://localhost:3000/event/rsvp",data);
+  rsvpEvent(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/rsvp", data);
   }
-  updateEvent(data){
-    return this.http.post("http://localhost:3000/event/update",data);
-
+  updateEvent(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/update", data);
   }
-  unlikeEvent(data){
-    return this.http.post("http://localhost:3000/event/unlike",data);
+  unlikeEvent(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/unlike", data);
   }
-  uncheckRsvp(data){
-    return this.http.post("http://localhost:3000/event/uncheck/rsvp",data);
+  uncheckRsvp(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/uncheck/rsvp", data);
   }
-  removeEvent(data){
-    console.log(data);
-    return this.http.post("http://localhost:3000/event/remove",data);
+  removeEvent(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/remove", data);
   }
-  getEventDetail(data){
-    return this.http.post("http://localhost:3000/event/details",data);
-
+  getEventDetail(data) {
+    return this.http.post(Constants.SERVICES_DOMAIN + "event/details", data);
   }
 
 }

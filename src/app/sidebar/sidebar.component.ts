@@ -16,6 +16,7 @@ export class SidebarComponent {
     pageTitle: any;
     creatorAccess: boolean = false;
     adminAccess: boolean = false;
+    highlightProfile:boolean = false;
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService) { }
 
@@ -38,6 +39,9 @@ export class SidebarComponent {
         } else if (this.url === '/admin') {
             this.highlightAdmin = true;
             this.pageTitle = "Admin"
+        } else if(this.url === '/profile'){
+            this.highlightProfile = true;
+            this.pageTitle = "Profile";
         }
 
         this.userService.getUserType({ 'userId': localStorage.getItem('userId') }).subscribe(data => {
@@ -64,6 +68,7 @@ export class SidebarComponent {
         this.highlightHome = false;
         this.highlightCreateEvent = false;
         this.highlightAdmin = false;
+        this.highlightProfile = false;
         this.router.navigate(['/category']);
     }
 
@@ -71,6 +76,7 @@ export class SidebarComponent {
         this.highlightCategory = false;
         this.highlightCreateEvent = false;
         this.highlightAdmin = false;
+        this.highlightProfile = false;
         this.router.navigate(['/events']);
     }
 
@@ -78,6 +84,7 @@ export class SidebarComponent {
         this.highlightCategory = false;
         this.highlightHome = false;
         this.highlightAdmin = false;
+        this.highlightProfile = false;
         this.router.navigate(['/createEvent']);
     }
 
@@ -85,7 +92,15 @@ export class SidebarComponent {
         this.highlightCategory = false;
         this.highlightHome = false;
         this.highlightCreateEvent = false;
+        this.highlightProfile = false;
         this.router.navigate(['/admin']);
+    }
+    profile(){
+        this.highlightCategory = false;
+        this.highlightHome = false;
+        this.highlightCreateEvent = false;
+        this.highlightAdmin = false;
+        this.router.navigate(['/profile']);
     }
 
     logout() {

@@ -10,6 +10,10 @@ const user = new Schema({
     'createdDate':Date,
     'updated': Date,
     'phone':Number,
+    'image':String,
+    'category': [],
+    'distance':Number,
+    'description':String,
     'zipCode':String
 }, { collection: 'User' });
 

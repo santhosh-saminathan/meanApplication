@@ -18,39 +18,23 @@ export class SignupComponent {
     confirmPassword: any;
     phoneNumber: any;
     zipCode: any;
-    userType:any;
+    userType: any;
     imageId: string;
-    errorData:String;
+    errorData: String;
 
-    uploader: CloudinaryUploader = new CloudinaryUploader(
-        new CloudinaryOptions({ cloudName: 'santhosh001', uploadPreset: 'saiaawaf' })
-    );
-
-    constructor( private router: Router,private signupService: SignupService, private elem: ElementRef){
-        //Override onSuccessItem to retrieve the imageId
-        this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
-            let res: any = JSON.parse(response);
-            this.imageId = res.public_id;
-            return { item, response, status, headers };
-        };
-    }
-
-    upload() {
-        this.uploader.uploadAll();
+    constructor(private router: Router, private signupService: SignupService) {
     }
 
     signUp() {
-
-        if(this.userName && this.email && this.userType && this.password && this.confirmPassword && this.phoneNumber && this.zipCode){
-          
-            if(this.password===this.confirmPassword){
+        if (this.userName && this.email && this.userType && this.password && this.confirmPassword && this.phoneNumber && this.zipCode) {
+            if (this.password === this.confirmPassword) {
                 let userObj = {
-                    'userName':this.userName,
-                    'email':this.email,
-                    'password':this.password,
-                    'phoneNumber':this.phoneNumber,
-                    'zipCode':this.zipCode,
-                    'userType':this.userType
+                    'userName': this.userName,
+                    'email': this.email,
+                    'password': this.password,
+                    'phoneNumber': this.phoneNumber,
+                    'zipCode': this.zipCode,
+                    'userType': this.userType
                 }
                 this.signupService.signupUser(userObj).subscribe(data => {
                     this.router.navigate(['/login'])
@@ -59,16 +43,15 @@ export class SignupComponent {
                         console.log(err.error.data);
                         this.errorData = err.error.data;
                     });
-            }else{
+            } else {
                 this.errorData = "Password and Confirm Password not matching";
             }
-        }else{
+        } else {
             this.errorData = "All Fields are necessary for signup";
         }
-
     }
 
-    backToLogin(){
+    backToLogin() {
         this.router.navigate(['/login'])
 
     }

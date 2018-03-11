@@ -37,7 +37,7 @@
             <i class="font_awesome fas fa-bell"></i>
         </div>
         <div>
-            <span>Profile</span>
+            <span [ngClass]="{'highlight': highlightProfile}" (click)="profile()">Profile</span>
             <i class="font_awesome fas fa-user"></i>
         </div>
     </div>
@@ -63,7 +63,7 @@
             <span>Notifications</span>
             <i class="font_awesome fas fa-bell"></i>
         </div>
-        <div>
+        <div [ngClass]="{'highlight': highlightProfile}" (click)="profile()">
             <span>Profile</span>
             <i class="font_awesome fas fa-user"></i>
         </div>
@@ -73,5 +73,6 @@
         <createEvent *ngIf="url === '/createEvent' && creatorAccess"></createEvent>
         <category *ngIf="url === '/category'"></category>
         <admin *ngIf="url === '/admin' && adminAccess"></admin>
+        <profile *ngIf="url === '/profile'"></profile>
     </div>
 </div>

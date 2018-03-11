@@ -5,10 +5,23 @@ const EventCollection = mongoose.model('Event');
 const EventDetailsCollection = mongoose.model('EventDetails');
 const UserCollection = mongoose.model('User');
 var _ = require('lodash');
+var async = require('async');
 
 var googleMapsClient = require('@google/maps').createClient({
     key: 'AIzaSyCA4T-nbBt9fN_rO6Au3EB7XTil_P-cqVI'
-  });
+});
+
+var distance = require('google-distance-matrix');
+distance.key('AIzaSyCA4T-nbBt9fN_rO6Au3EB7XTil_P-cqVI');
+
+
+// var origins = ['Coimbatore'];
+// var destinations = ['Chennai'];
+
+// distance.matrix(origins, destinations, function (err, distances) {
+//     if (!err)
+//         console.log(distances.rows[0].elements[0].distance.text);
+// })
 
 //   googleMapsClient.geocode({
 //     address: 'Coimbatore, india'
@@ -58,17 +71,63 @@ const createEvent = (req, res) => {
 }
 
 const allApprovedEvents = (req, res) => {
-    console.log("**approved  events");
+    let userCategory = [];
+    let userDistance;
+    let userLocation;
+    let newCategoryArray = [];
+    let userFilterArray = [];
+
+    let userDistanceFilter = (events) => {
+
+        let count = 0;
+        async.forEach(events, function (data) {
+            distance.matrix([userLocation], [data.location], function (err, distances) {
+                if (!err) {
+                    count++;
+                    let eventDis = distances.rows[0].elements[0].distance.text.replace(",", "")
+                    if (userDistance > parseInt(eventDis.split(" ")[0])) {
+                        userFilterArray.push(data);
+                    }
+                    if (count === events.length) {
+                        res.status(200).json(userFilterArray);
+                    }
+                } else {
+                    console.log("google distance error", err);
+                }
+            })
+        });
+    }
+
+    let userCategoryFilter = (events) => {
+        UserCollection.findOne({ 'userId': req.body.userId }).exec(function (err, user) {
+            if (user.userType === 'admin') {
+                res.status(200).json(events);
+            } else {
+                userCategory = user.category;
+                userDistance = user.distance;
+                userLocation = user.zipCode;
+                let count = 0;
+                events.forEach(function (event) {
+                    count++;
+                    if (_.intersectionWith(userCategory, event.categoryId, _.isEqual).length > 0) {
+                        newCategoryArray.push(event);
+                    }
+                    if (events.length === count) {
+                        userDistanceFilter(newCategoryArray)
+                    }
+                });
+            }
+        });
+    }
+
     let allEvents = [];
     EventCollection.find().lean().exec(function (error, events) {
         if (error) {
             res.json(400, { 'status': 'error', 'data': 'Failed to retrive events' });
         }
         else {
-            console.log("**db success");
             let count = 0;
             events.forEach(function (data) {
-                console.log("**looping");
                 EventDetailsCollection.findOne({ 'eventId': data.eventId }, function (err, eventDetails) {
                     count++;
                     if (eventDetails) {
@@ -78,19 +137,16 @@ const allApprovedEvents = (req, res) => {
                     if (data.approved) {
                         allEvents.push(data);
                     }
-
                     if (events.length === count) {
-                        console.log("**response send");
-                        res.status(200).json(allEvents);
+                        userCategoryFilter(allEvents);
                     }
                 });
-            })
+            });
         }
-    })
+    });
 }
 
 const newEvents = (req, res) => {
-    console.log("called");
     let allEvents = [];
     EventCollection.find().lean().exec(function (error, events) {
         if (error) {
@@ -99,7 +155,6 @@ const newEvents = (req, res) => {
         else {
             let count = 0;
             events.forEach(function (data) {
-                console.log("loooping");
                 EventDetailsCollection.findOne({ 'eventId': data.eventId }, function (err, eventDetails) {
                     count++;
                     if (eventDetails) {
@@ -111,7 +166,6 @@ const newEvents = (req, res) => {
                     }
 
                     if (events.length === count) {
-                        console.log("sending respinse");
                         res.status(200).json(allEvents);
                     }
                 });
@@ -131,7 +185,6 @@ const updateEvent = (req, res) => {
     }
 
     EventCollection.findOneAndUpdate({ 'eventId': req.body.eventId }, { $set: updatedEvent }, { new: true }, function (err, updatedDetails) {
-        console.log(err, updatedDetails);
         if (err) {
             res.json(400, { 'status': 'error', 'data': 'Failed to update event' });
         }
@@ -144,7 +197,6 @@ const updateEvent = (req, res) => {
 
 const approveEvent = (req, res) => {
     EventCollection.findOneAndUpdate({ 'eventId': req.body.eventId }, { $set: { 'approved': true } }, { new: true }, function (err, updatedDetails) {
-        console.log(err, updatedDetails);
         if (err) {
             res.json(400, { 'status': 'error', 'data': 'Failed to approve event' });
         }
@@ -156,10 +208,8 @@ const approveEvent = (req, res) => {
 }
 
 const removeEvent = (req, res) => {
-    console.log(req.body);
     EventDetailsCollection.remove({ 'eventId': req.body.eventId }, function (err, removedEvent) {
         EventCollection.findOneAndRemove({ 'eventId': req.body.eventId }, function (err, removedEvent) {
-            console.log(err, removedEvent);
             if (err) {
                 res.json(400, { 'status': 'error', 'data': 'Failed to update event' });
             }
@@ -173,61 +223,44 @@ const removeEvent = (req, res) => {
 }
 
 const getEventDetails = (req, res) => {
-
-
-
-
     let getCreatorDetails = (event) => {
         UserCollection.findOne({ 'userId': event.userId }, function (err, userDetails) {
-            
             if (userDetails) {
                 event.creatorDetails = userDetails;
-
                 googleMapsClient.geocode({
                     address: event.location
-                  }, function(err, response) {
+                }, function (err, response) {
                     if (!err) {
-                    let lat =  response.json.results['0'].geometry.location.lat.toString();
-                    let lng = response.json.results['0'].geometry.location.lng.toString();
-                      console.log(lat,lng);
-                      event.latitude = lat;
-                      event.longitude = lng;
-                      res.json(200,event);
-                    }else{
-                        res.json(200,event);
+                        let lat = response.json.results['0'].geometry.location.lat.toString();
+                        let lng = response.json.results['0'].geometry.location.lng.toString();
+                        event.latitude = lat;
+                        event.longitude = lng;
+                        res.json(200, event);
+                    } else {
+                        res.json(200, event);
                     }
-                  });
-               
+                });
             }
-            else{
+            else {
                 res.json(404);
             }
         })
-    
     }
-
-   
     EventCollection.findOne({ 'eventId': req.body.eventId }).lean().exec(function (err, event) {
         if (err || event === null) {
 
         } else {
-            console.log(event.eventId);
-            console.log(event.userId);
             EventDetailsCollection.findOne({ 'eventId': event.eventId }, function (err, eventDetails) {
-                console.log(err,eventDetails);
                 if (eventDetails) {
                     event.likes = eventDetails.likes;
                     event.rsvp = eventDetails.rsvp;
                     getCreatorDetails(event)
                 } else {
-                    console.log("whta");
                     getCreatorDetails(event)
                 }
             })
         }
     })
-
-
 }
 
 

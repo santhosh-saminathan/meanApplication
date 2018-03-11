@@ -23,6 +23,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { UserService } from './services/user.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './services/admin.service';
+import {ProfileComponent} from './profile/profile.component';
 
 const appRoutes = [
   { path: '', component: LoginComponent },
@@ -32,6 +33,7 @@ const appRoutes = [
   { path: 'createEvent', component: SidebarComponent },
   { path: 'category', component: SidebarComponent },
   { path: 'admin', component: SidebarComponent },
+  { path: 'profile', component: SidebarComponent },
   { path: 'event/details/:eventId', component: EventDetailsComponent }
 ]
 
@@ -45,7 +47,8 @@ const appRoutes = [
     CreateEventComponent,
     CategoryComponent,
     EventDetailsComponent,
-    AdminComponent
+    AdminComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

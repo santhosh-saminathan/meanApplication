@@ -36,7 +36,20 @@ const createUser = (req, res) => {
                     'updated': new Date(Date.now()),
                     'phone': req.body.phoneNumber,
                     'zipCode': req.body.zipCode,
-                    'userType': req.body.userType
+                    'userType': req.body.userType,
+                    'image': '',
+                    'description': '',
+                    'category': [
+                        { "id": 1, "itemName": "category 1" },
+                        { "id": 2, "itemName": "category 2" },
+                        { "id": 3, "itemName": "category 3" },
+                        { "id": 4, "itemName": "category 4" },
+                        { "id": 5, "itemName": "category 5" },
+                        { "id": 6, "itemName": "category 6" },
+                        { "id": 7, "itemName": "category 7" },
+                        { "id": 8, "itemName": "category 8" }
+                    ],
+                    'distance': 2000,
                 }
                 let UserNewCollection = new UserCollection(userObj);
                 UserNewCollection.save((error, userCreated) => {
@@ -70,7 +83,11 @@ const createAdmin = (req, res) => {
                 'updated': new Date(Date.now()),
                 'phone': "1111111111",
                 'zipCode': "12345",
-                'userType': "admin"
+                'userType': "admin",
+                'image': '',
+                'category': [],
+                'distance': 2000,
+                'description': ''
             }
             let UserNewCollection = new UserCollection(userObj);
             UserNewCollection.save((error, userCreated) => {
@@ -137,9 +154,40 @@ const deleteUser = (req, res) => {
             });
         });
     });
+}
 
+const getUserDetails = (req, res) => {
+    UserCollection.findOne({ 'userId': req.body.userId }, function (err, user) {
+        if (err || user == null) {
+            res.status(400).json({ 'status': 'error', 'data': err });
+        } else {
+            res.status(200).json(user);
+        }
+    });
+}
 
+const updateUserDetails = (req, res) => {
 
+    let updatedUser = {
+        'userName': req.body.userName,
+        'password': req.body.password,
+        'updated': new Date(Date.now()),
+        'phone': req.body.phone,
+        'image': req.body.image,
+        'category': req.body.category,
+        'distance': req.body.distance,
+        'zipCode': req.body.zipCode,
+        'description': req.body.description
+    }
+
+    UserCollection.findOneAndUpdate({ 'userId': req.body.userId }, { $set: updatedUser }, { new: true }, function (err, updatedDetails) {
+        console.log(err, updatedDetails);
+        if (err) {
+            res.status(400).json({ 'status': 'error', 'data': err });
+        } else {
+            res.status(200).json(updatedDetails);
+        }
+    });
 }
 
 module.exports = {
@@ -148,5 +196,7 @@ module.exports = {
     userType: userType,
     allUsers: allUsers,
     deleteUser: deleteUser,
-    createAdmin: createAdmin
+    createAdmin: createAdmin,
+    getUserDetails: getUserDetails,
+    updateUserDetails: updateUserDetails
 }
