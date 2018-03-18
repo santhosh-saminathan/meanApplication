@@ -14,6 +14,7 @@ export class ProfileComponent {
     dropdownList:any;
     selectedItems:any;
     dropdownSettings:any;
+    successInfo:boolean = false;
     
     constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -51,7 +52,6 @@ export class ProfileComponent {
         const that = this;
         myReader.onloadend = (loadEvent: any) => {
             this.image = loadEvent.target.result;
-            //console.log('file load', loadEvent.target.result);
         };
         myReader.readAsDataURL(file);
     }
@@ -76,6 +76,7 @@ export class ProfileComponent {
         this.userService.updateUser(user).subscribe(data => {
             console.log(data);
             this.user = data;
+            this.successInfo = true;
         }, err => {
             console.log(err);
         })

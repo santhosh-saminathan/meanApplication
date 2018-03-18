@@ -87,14 +87,14 @@ export class CreateEventComponent {
 
     createEvent() {
 
-        if (this.eventTitle && this.selectedItems && this.eventDesc && this.autocomplete.gm_accessors_.place.dd.formattedPrediction && this.eventDate && this.image) {
+        if (this.eventTitle && this.selectedItems && this.eventDesc && this.autocomplete.gm_accessors_.place.fd.formattedPrediction && this.eventDate && this.image) {
             this.fieldsMissing = false;
             let event = {
                 'userId': localStorage.getItem('userId'),
                 'eventName': this.eventTitle,
                 'categoryId': this.selectedItems,
                 'description': this.eventDesc,
-                'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction,
+                'location': this.autocomplete.gm_accessors_.place.fd.formattedPrediction,
                 'eventDate': this.eventDate,
                 'image': this.image
             }

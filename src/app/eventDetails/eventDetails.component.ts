@@ -67,16 +67,16 @@ export class EventDetailsComponent {
         localStorage.setItem('lat', position.coords.latitude);
         localStorage.setItem('lng', position.coords.longitude);
     }
-    
-    successCallback(data){
+
+    successCallback(data) {
         console.log(data);
     }
-    errorCallback(data){
+    errorCallback(data) {
         console.log(data);
     }
 
     ngOnInit() {
-        navigator.geolocation.getCurrentPosition(this.successCallback,this.errorCallback,{timeout:10000});
+        navigator.geolocation.getCurrentPosition(this.successCallback, this.errorCallback, { timeout: 10000 });
 
         localStorage.removeItem('lat');
         localStorage.removeItem('lng');
@@ -128,7 +128,10 @@ export class EventDetailsComponent {
                     avoidHighways: false,
                     avoidTolls: false
                 }, function (response, status) {
-                    document.getElementById('distance').innerHTML = response.rows["0"].elements["0"].distance.text;;
+                    let eventDis = response.rows[0].elements[0].distance.text.replace(",", "")
+                    let miles = (parseInt(eventDis.split(" ")[0]) * 0.621371);
+                    document.getElementById('miles').innerHTML = miles.toString()+' Miles';
+                    document.getElementById('distance').innerHTML = response.rows["0"].elements["0"].distance.text;
                     document.getElementById('time').innerHTML = response.rows["0"].elements["0"].duration.text;
                 })
                 this.calculateAndDisplayRoute(directionsService, directionsDisplay);
@@ -149,12 +152,12 @@ export class EventDetailsComponent {
     }
 
     updateEvent() {
-        console.log(this.autocomplete,this.updateEventLocation);
+        console.log(this.autocomplete, this.updateEventLocation);
         let data = {
             'eventName': this.updateEventTitle,
             'eventId': this.eventId,
             'categoryId': this.updateEventCategory,
-            'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction?this.autocomplete.gm_accessors_.place.dd.formattedPrediction:this.updateEventLocation,
+            'location': this.autocomplete.gm_accessors_.place.fd.formattedPrediction ? this.autocomplete.gm_accessors_.place.fd.formattedPrediction : this.updateEventLocation,
             'eventDate': this.updateEventDate,
             'description': this.updateEventDesc
         }

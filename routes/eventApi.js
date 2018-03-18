@@ -85,7 +85,7 @@ const allApprovedEvents = (req, res) => {
                 if (!err) {
                     count++;
                     let eventDis = distances.rows[0].elements[0].distance.text.replace(",", "")
-                    if (userDistance > parseInt(eventDis.split(" ")[0])) {
+                    if (userDistance > (parseInt(eventDis.split(" ")[0]))*0.621371) {
                         userFilterArray.push(data);
                     }
                     if (count === events.length) {
