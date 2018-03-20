@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { EventService } from './../services/events.service';
+import { setTimeout } from 'timers';
 declare let google: any;
 
 @Component({
@@ -87,21 +88,25 @@ export class CreateEventComponent {
 
     createEvent() {
 
-        if (this.eventTitle && this.selectedItems && this.eventDesc && this.autocomplete.gm_accessors_.place.fd.formattedPrediction && this.eventDate && this.image) {
+         
+
+        if (this.eventTitle && this.selectedItems && this.eventDesc && this.autocomplete.gm_accessors_.place.dd.formattedPrediction && this.eventDate && this.image) {
             this.fieldsMissing = false;
             let event = {
                 'userId': localStorage.getItem('userId'),
                 'eventName': this.eventTitle,
                 'categoryId': this.selectedItems,
                 'description': this.eventDesc,
-                'location': this.autocomplete.gm_accessors_.place.fd.formattedPrediction,
+                'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction,
                 'eventDate': this.eventDate,
                 'image': this.image
             }
             this.eventService.createEvent(event).subscribe(data => {
                 this.message = "Event Created Successfully. Events will display in Events page after Admin approves Event";
-                //this.router.navigate(['/events']);
-                //console.log(data);
+                setTimeout(() => {
+                    this.router.navigate(['/events']);
+                  },2000)
+                
 
             },err => {
                 //this.message = "Failed to create Event";

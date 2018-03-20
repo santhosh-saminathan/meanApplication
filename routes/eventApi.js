@@ -181,7 +181,8 @@ const updateEvent = (req, res) => {
         'updated': new Date(Date.now()),
         'categoryId': req.body.categoryId,
         'description': req.body.description,
-        'location': req.body.location
+        'location': req.body.location,
+        'image':req.body.image
     }
 
     EventCollection.findOneAndUpdate({ 'eventId': req.body.eventId }, { $set: updatedEvent }, { new: true }, function (err, updatedDetails) {

@@ -23,6 +23,7 @@ export class EventDetailsComponent {
     dropdownList: any;
     dropdownSettings: any;
     enableEdit: boolean = false;
+    newImage:any;
 
     calculateAndDisplayRoute(directionsService, directionsDisplay) {
         if (localStorage.getItem('lat') && localStorage.getItem('lng')) {
@@ -53,6 +54,17 @@ export class EventDetailsComponent {
             });
         }
 
+    }
+
+    public fileChangeListener($event) {
+        let file = $event.target.files[0];
+        const myReader: FileReader = new FileReader();
+        const that = this;
+        myReader.onloadend = (loadEvent: any) => {
+            this.newImage = loadEvent.target.result;
+            //console.log('file load', loadEvent.target.result);
+        };
+        myReader.readAsDataURL(file);
     }
 
     getLocation() {
@@ -148,6 +160,7 @@ export class EventDetailsComponent {
         this.updateEventLocation = this.event.location;
         this.eventId = this.event.eventId;
         this.updateEventCategory = this.event.categoryId;
+        this.newImage = this.event.image;
         this.enableEdit = true;
     }
 
@@ -157,9 +170,10 @@ export class EventDetailsComponent {
             'eventName': this.updateEventTitle,
             'eventId': this.eventId,
             'categoryId': this.updateEventCategory,
-            'location': this.autocomplete.gm_accessors_.place.fd.formattedPrediction ? this.autocomplete.gm_accessors_.place.fd.formattedPrediction : this.updateEventLocation,
+            'location': this.autocomplete.gm_accessors_.place.dd.formattedPrediction ? this.autocomplete.gm_accessors_.place.dd.formattedPrediction : this.updateEventLocation,
             'eventDate': this.updateEventDate,
-            'description': this.updateEventDesc
+            'description': this.updateEventDesc,
+            'image':this.newImage
         }
         this.eventService.updateEvent(data).subscribe(data => {
             this.enableEdit = false;
