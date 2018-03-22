@@ -32,12 +32,10 @@ const likeEvent = (req, res) => {
         } else {
             UserCollection.findOne({ 'userId': req.body.likedUserId }, function (err, data) {
                 if (data) {
-                    console.log("like user dta", data);
                     EventDetailsCollection.findOneAndUpdate({
                         'eventId': req.body.eventId
                     }, { $addToSet: { 'likes': data } }, { new: true })
                         .exec((error, updatedDetails) => {
-                            console.log("update event", error, updatedDetails);
                             if (error) {
                                 res.json(400, { 'status': 'error', 'data': 'Failed to update likes' });
                             }
@@ -113,12 +111,10 @@ const rsvpEvent = (req, res) => {
 }
 
 const uncheckRsvp = (req, res) => {
-    console.log("uncheck rsvp0");
     EventDetailsCollection.findOneAndUpdate({
         'eventId': req.body.eventId
     }, { $pull: { 'rsvp': { 'userId':req.body.uncheckedRsvpUserId} } }, { new: true })
         .exec((error, updatedDetails) => {
-            console.log("uncehck", error, updatedDetails);
             if (error) {
                 res.json(400, { 'status': 'error', 'data': 'Failed to unlike event' });
             }

@@ -1,7 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { EventService } from './../services/events.service';
-import { setTimeout } from 'timers';
 declare let google: any;
 
 @Component({

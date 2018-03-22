@@ -8,30 +8,11 @@ var _ = require('lodash');
 var async = require('async');
 
 var googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyCA4T-nbBt9fN_rO6Au3EB7XTil_P-cqVI'
+    key: 'AIzaSyACbtbf-TDINuqLhht9zk8QSt1JcEbLA0M'
 });
 
 var distance = require('google-distance-matrix');
-distance.key('AIzaSyCA4T-nbBt9fN_rO6Au3EB7XTil_P-cqVI');
-
-
-// var origins = ['Coimbatore'];
-// var destinations = ['Chennai'];
-
-// distance.matrix(origins, destinations, function (err, distances) {
-//     if (!err)
-//         console.log(distances.rows[0].elements[0].distance.text);
-// })
-
-//   googleMapsClient.geocode({
-//     address: 'Coimbatore, india'
-//   }, function(err, response) {
-//     if (!err) {
-//     let lat =  response.json.results['0'].geometry.location.lat.toString();
-//     let lng = response.json.results['0'].geometry.location.lng.toString();
-//       console.log(response.json.results,lat,lng);
-//     }
-//   });
+distance.key('AIzaSyACbtbf-TDINuqLhht9zk8QSt1JcEbLA0M');
 
 const createEvent = (req, res) => {
     let eventId;
@@ -92,7 +73,7 @@ const allApprovedEvents = (req, res) => {
                         res.status(200).json(userFilterArray);
                     }
                 } else {
-                    console.log("google distance error", err);
+                    console.error("google distance error", err);
                 }
             })
         });

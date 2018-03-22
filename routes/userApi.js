@@ -9,12 +9,6 @@ var Cryptr = require('cryptr'),
     cryptr = new Cryptr('myTotalySecretKey');
 
 
-// var encryptedString = cryptr.encrypt('bacon'),
-//     decryptedString = cryptr.decrypt(encryptedString);
-
-// console.log(encryptedString);  
-// console.log(decryptedString);  
-
 
 const createUser = (req, res) => {
     let userId;
@@ -54,7 +48,6 @@ const createUser = (req, res) => {
                 let UserNewCollection = new UserCollection(userObj);
                 UserNewCollection.save((error, userCreated) => {
                     if (error) {
-                        console.log("Crating erroe", error);
                         res.json(400, { 'status': 'error', 'data': 'Failed to create user' });
                     }
                     else {
@@ -92,7 +85,6 @@ const createAdmin = (req, res) => {
             let UserNewCollection = new UserCollection(userObj);
             UserNewCollection.save((error, userCreated) => {
                 if (error) {
-                    console.log("Crating erroe", error);
                     res.json(400, { 'status': 'error', 'data': 'Failed to create user' });
                 }
                 else {
@@ -139,16 +131,13 @@ const allUsers = (req, res) => {
 }
 
 const deleteUser = (req, res) => {
-    console.log(req.body.userId);
     EventDetailsCollection.remove({ 'userId': req.body.userId }, function (err, success) {
         EventCollection.remove({ 'userId': req.body.userId }, function (err, success) {
             UserCollection.findOneAndRemove({ 'userId': req.body.userId }, function (err, removedUser) {
-                console.log(err, removedUser);
                 if (err) {
                     res.json(400, { 'status': 'error', 'data': 'Failed to delete user' });
                 }
                 else {
-                    console.log("final");
                     res.json(200, removedUser);
                 }
             });
@@ -181,7 +170,6 @@ const updateUserDetails = (req, res) => {
     }
 
     UserCollection.findOneAndUpdate({ 'userId': req.body.userId }, { $set: updatedUser }, { new: true }, function (err, updatedDetails) {
-        console.log(err, updatedDetails);
         if (err) {
             res.status(400).json({ 'status': 'error', 'data': err });
         } else {
